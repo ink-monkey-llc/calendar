@@ -8,6 +8,9 @@ async function Calendar() {
   return <div>Sign in to access your calendar</div>
  }
  const events = await getGoogleCalendarEvents(session.accessToken)
+ if (!events || events.length === 0) {
+  return <div>No events found</div>
+ }
  return (
   <div>
    {events.map((event, index) => (

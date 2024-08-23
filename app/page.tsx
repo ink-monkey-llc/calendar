@@ -1,12 +1,15 @@
-import Calendar from './components/calendar'
+import Events from './components/events'
 import SignInOut from './components/sign-in-out'
+import { auth } from './lib/auth'
 
-export default function Home() {
+export default async function Home() {
+ const session = await auth()
+ //  console.log(session)
  return (
   <div>
-   <div>Calendar</div>
+   <div>Events</div>
    <SignInOut />
-   <Calendar />
+   {session && <Events />}
   </div>
  )
 }
