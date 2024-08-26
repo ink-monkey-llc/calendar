@@ -21,3 +21,9 @@ export type CalendarEvent = {
  reminders: { useDefault: boolean }
  eventType: string
 }
+
+export type Day = {
+ date: string
+ day: number
+ isCurrentMonth: boolean
+}

@@ -1,10 +1,16 @@
 import React from 'react'
-import dayjs from '../../lib/dayjs'
-import { daysInMonth } from '../../lib/utils'
+import { days } from '../../lib/date-utils'
+import { getGoogleCalendarEvents } from '@/app/lib/calendar'
+import { auth } from '@/app/lib/auth'
+import Day from './day'
 
-function Calendar() {
+async function Calendar() {
+ const session = await auth()
  const weekdays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
-
+ if (!session || !session.accessToken) {
+  return <div>Sign in to access your calendar</div>
+ }
+ const events = await getGoogleCalendarEvents(session.accessToken)
  return (
   <div className='relative bg-gray-800 border border-gray-800'>
    <section className='flex justify-between p-2 bg-gray-900'>
@@ -24,7 +30,16 @@ function Calendar() {
      </li>
     ))}
    </ul>
-   <ul className='grid grid-cols-7 relative h-full gap-[1px] border-t-black'></ul>
+   <ul className='grid grid-cols-7 relative h-full gap-[1px] border-t-black'>
+    {days.map((day, index) => (
+     <Day
+      events={events}
+      key={index}
+      day={day}
+      index={index}
+     />
+    ))}
+   </ul>
   </div>
  )
 }
