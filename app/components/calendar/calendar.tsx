@@ -1,6 +1,7 @@
 import React from 'react'
 import { days } from '../../lib/date-utils'
 import { getGoogleCalendarEvents } from '@/app/lib/calendar'
+import type { CalendarEvent } from '@/types/types'
 import { auth } from '@/app/lib/auth'
 import Day from './day'
 
@@ -33,7 +34,7 @@ async function Calendar() {
    <ul className='grid grid-cols-7 relative h-full gap-[1px] border-t-black'>
     {days.map((day, index) => (
      <Day
-      events={events}
+      events={events as CalendarEvent[]}
       key={index}
       day={day}
       index={index}
