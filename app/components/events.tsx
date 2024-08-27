@@ -1,5 +1,5 @@
 import React from 'react'
-import { auth } from '../lib/auth'
+import { auth } from '@/auth'
 import { getGoogleCalendarEvents } from '../lib/calendar'
 
 async function Calendar() {
@@ -14,7 +14,10 @@ async function Calendar() {
  return (
   <div>
    {events.map((event, index) => (
-    <div key={index}>{event.summary}</div>
+    <div key={index}>
+     <p>{event.summary}</p>
+     <p>{event.start?.date}</p>
+    </div>
    ))}
   </div>
  )

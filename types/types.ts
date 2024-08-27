@@ -1,3 +1,5 @@
+import { Session } from 'inspector'
+
 export type CalendarEvent = {
  kind: string
  etag: string
@@ -12,7 +14,7 @@ export type CalendarEvent = {
  colorId: string
  creator: { email: string; self: boolean }
  organizer: { email: string; self: boolean }
- start: { dateTime: string; timeZone: string }
+ start: { date: string; dateTime: string; timeZone: string }
  end: { dateTime: string; timeZone: string }
  recurringEventId: string
  originalStartTime: { dateTime: string; timeZone: string }
@@ -27,3 +29,4 @@ export type Day = {
  day: number
  isCurrentMonth: boolean
 }
+export type TokenSession = Session & { accessToken?: string; idToken?: string }

@@ -1,17 +1,19 @@
-import type { GetServerSidePropsContext, NextApiRequest, NextApiResponse } from 'next'
-import type { NextAuthOptions, Session } from 'next-auth'
-import GoogleProvider from 'next-auth/providers/google'
-import { getServerSession } from 'next-auth'
+import NextAuth, { Session } from 'next-auth'
 import { JWT } from 'next-auth/jwt'
+import Google from 'next-auth/providers/google'
 
-const clientId = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID ?? ''
-const clientSecret = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_SECRET ?? ''
+declare module 'next-auth' {
+ interface Session {
+  accessToken?: string
+  idToken?: string
+ }
+}
 
-export const config = {
+export const { auth, handlers, signIn, signOut } = NextAuth({
  providers: [
-  GoogleProvider({
-   clientId: clientId,
-   clientSecret: clientSecret,
+  Google({
+   clientId: process.env.GOOGLE_CLIENT_ID,
+   clientSecret: process.env.GOOGLE_CLIENT_SECRET,
    authorization: {
     params: {
      prompt: 'consent',
@@ -38,9 +40,4 @@ export const config = {
    return session
   },
  },
-} satisfies NextAuthOptions
-
-// Use it in server contexts
-export function auth(...args: [GetServerSidePropsContext['req'], GetServerSidePropsContext['res']] | [NextApiRequest, NextApiResponse] | []) {
- return getServerSession(...args, config)
-}
+})
