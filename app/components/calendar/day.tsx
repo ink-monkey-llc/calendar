@@ -10,15 +10,15 @@ type Props = {
 }
 
 function Day({ day, index, events }: Props) {
- const eventsForDay = events.filter((event) => event.start.date?.includes(day.date) || event.start.dateTime?.includes(day.date))
+ const eventsForDay = events?.filter((event) => event.start.date?.includes(day.date) || event.start.dateTime?.includes(day.date))
  const isToday = dayjs().format('YYYY-MM-DD') === day.date
  return (
   <div className={cn('aspect-square w-full border border-gray-300', day.isCurrentMonth ? 'bg-blue-900' : 'bg-gray-800', isToday && 'bg-blue-600')}>
    <li
-    className=' text-end pr-[5px]'
+    className='text-end pr-[5px]'
     key={index}>
     {day.day}
-    {eventsForDay.length > 0 &&
+    {eventsForDay?.length > 0 &&
      eventsForDay.map((event) => (
       <div
        key={event.id}

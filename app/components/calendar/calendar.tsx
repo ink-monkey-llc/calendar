@@ -12,11 +12,11 @@ async function Calendar({ month, year }: { month: number; year: number }) {
  const session = await auth()
  const weekdays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
 
- if (!session || !session.accessToken) {
+ if (!session || !session.accessToken || !session.refreshToken) {
   return <div>Sign in to access your calendar</div>
  }
 
- const events = await getGoogleCalendarEvents(session.accessToken)
+ const events = await getGoogleCalendarEvents(session.accessToken, session.refreshToken)
  const selectedMonth = dayjs()
   .month(month - 1)
   .format('MMMM')

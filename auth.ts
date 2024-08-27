@@ -6,6 +6,8 @@ declare module 'next-auth' {
  interface Session {
   accessToken?: string
   idToken?: string
+  refreshToken?: string
+  expiresIn?: string
  }
 }
 
@@ -29,6 +31,8 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
    if (account) {
     token.accessToken = account.access_token
     token.idToken = account.id_token
+    token.refreshToken = account.refresh_token
+    token.expiresIn = account.expires_in
    }
    return token
   },
@@ -36,6 +40,8 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
    if (token.accessToken) {
     session.accessToken = token.accessToken as string
     session.idToken = token.idToken as string
+    session.refreshToken = token.refreshToken as string
+    session.expiresIn = token.expiresIn as string
    }
    return session
   },
