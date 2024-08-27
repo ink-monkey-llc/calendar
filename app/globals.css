@@ -23,3 +23,19 @@ body {
     text-wrap: balance;
   }
 }
+
+.calendar-wrapper {
+  background-image: url('/desktop.png');
+  background-size: 100% 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+
+
+.day-bg {
+  background-image: url('/bg.png');
+  background-size: 107% 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+}

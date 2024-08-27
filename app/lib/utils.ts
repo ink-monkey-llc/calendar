@@ -39,3 +39,7 @@ export function getLastMonthYear(month: number, year: number): string {
 
  return `${lastMonth}_${lastYear}`
 }
+
+export function trunc(input: string): string {
+ return input.length > 8 ? input.substring(0, 7) : input
+}

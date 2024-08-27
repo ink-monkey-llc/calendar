@@ -23,29 +23,8 @@ async function Calendar({ month, year }: { month: number; year: number }) {
  const today = dayjs().format('MMMM D, YYYY')
 
  return (
-  <div className='relative bg-gray-800 border border-gray-800'>
-   <section className='flex justify-between p-2 bg-gray-900'>
-    <div className='flex items-center justify-between gap-3 text-2xl '>
-     <Link
-      href={`/cal?m=${getLastMonthYear(month, year)}`}
-      className='cursor-pointer '>{`<`}</Link>
-     <span className='cursor-pointer flex '>{selectedMonth}</span>
-     <Link
-      href={`/cal?m=${getNextMonthYear(month, year)}`}
-      className='cursor-pointer '>{`>`}</Link>
-    </div>
-    <div className=''>Today: {today}</div>
-   </section>
-   <ul className='text-lg bg-gray-600 pb-[5px] pt-[10px] grid grid-cols-7 gap-x-1'>
-    {weekdays.map((day: string, index) => (
-     <li
-      className='text-end pr-[5px]'
-      key={index}>
-      {day}
-     </li>
-    ))}
-   </ul>
-   <ul className='grid grid-cols-7 relative h-full gap-[1px] border-t-black'>
+  <div className=' max-w-[1000px] mx-auto'>
+   <ul className='grid grid-cols-11 h-full  border-t-black'>
     {days(year, month).map((day, index) => (
      <Day
       events={events as CalendarEvent[]}

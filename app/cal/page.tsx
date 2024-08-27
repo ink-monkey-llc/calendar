@@ -7,10 +7,12 @@ function Cal({ searchParams }: { searchParams: { [key: string]: string | string[
  const initMonth = Number(dayjs().format('M'))
  const { month, year } = searchParams.m ? splitDateString(searchParams.m as string) : { month: initMonth, year: initYear }
  return (
-  <Calendar
-   month={month}
-   year={year}
-  />
+  <div className='calendar-wrapper w-max p-4'>
+   <Calendar
+    month={month}
+    year={year}
+   />
+  </div>
  )
 }
 

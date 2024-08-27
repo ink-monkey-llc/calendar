@@ -68,5 +68,6 @@ export const days = (year: number, month: number) => {
  const nextMonthDays = makeNextMonthDays(year, month - 1)
  const prevMonthDays = makePrevMonthDays(year, month - 1)
 
- return [...prevMonthDays, ...currMonthDays, ...nextMonthDays]
+ //  return [...prevMonthDays, ...currMonthDays, ...nextMonthDays]
+ return currMonthDays
 }
