@@ -45,7 +45,7 @@ async function Calendar({ month, year }: { month: number; year: number }) {
      </li>
     ))}
    </ul>
-   <ul className='grid grid-cols-10 relative h-full gap-[1px] border-t-black'>
+   <ul className='grid grid-cols-7 relative h-full gap-[1px] border-t-black'>
     {days(year, month).map((day, index) => (
      <Day
       events={events as CalendarEvent[]}
