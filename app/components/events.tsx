@@ -4,10 +4,10 @@ import { getGoogleCalendarEvents } from '../lib/calendar'
 
 async function Calendar() {
  const session = await auth()
- if (!session || !session.accessToken) {
+ if (!session || !session.accessToken || !session.refreshToken) {
   return <div>Sign in to access your calendar</div>
  }
- const events = await getGoogleCalendarEvents(session.accessToken)
+ const events = await getGoogleCalendarEvents(session.accessToken, session.refreshToken)
  if (!events || events.length === 0) {
   return <div>No events found</div>
  }
