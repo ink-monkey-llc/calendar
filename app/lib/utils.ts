@@ -40,6 +40,6 @@ export function getLastMonthYear(month: number, year: number): string {
  return `${lastMonth}_${lastYear}`
 }
 
-export function trunc(input: string): string {
- return input.length > 8 ? input.substring(0, 7) : input
+export function trunc(input: string, numChars = 8, elipsis = false): string {
+ return input.length > numChars ? input.substring(0, numChars - 1) + (elipsis ? '...' : '') : input
 }

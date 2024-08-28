@@ -6,7 +6,7 @@ export default async function Home() {
  const session = await auth()
  //  console.log(session)
  return (
-  <div>
+  <div className='relative'>
    <div>Events</div>
    <SignInOut />
    {session && <Events />}
