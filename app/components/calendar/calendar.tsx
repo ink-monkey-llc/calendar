@@ -11,11 +11,11 @@ async function Calendar({ month, year }: { month: number; year: number }) {
  const session = await auth()
  const weekdays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
 
- if (!session || !session.accessToken || !session.refreshToken) {
+ if (!session || !session.accessToken || !session.idToken || !session.refreshToken || !session.expiresIn) {
   return <div>Sign in to access your calendar</div>
  }
-
- const events = await getGoogleCalendarEvents(session.accessToken, session.refreshToken)
+ console.log(session)
+ const events = await getGoogleCalendarEvents(session.accessToken, session.idToken, session.refreshToken, session.expiresIn)
 
  const weather = await getWeather(65804)
 

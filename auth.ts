@@ -1,4 +1,5 @@
-import NextAuth, { Session } from 'next-auth'
+import NextAuth, { Account, Session } from 'next-auth'
+import { AdapterAccount } from 'next-auth/adapters'
 import { JWT } from 'next-auth/jwt'
 import Google from 'next-auth/providers/google'
 
@@ -7,7 +8,7 @@ declare module 'next-auth' {
   accessToken?: string
   idToken?: string
   refreshToken?: string
-  expiresIn?: string
+  expiresIn?: number
  }
 }
 
@@ -27,22 +28,23 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
   }),
  ],
  callbacks: {
-  async jwt({ token, account }: { token: JWT; account: any }) {
+  async jwt({ token, account }: { token: JWT; account: Account | null }) {
    if (account) {
     token.accessToken = account.access_token
     token.idToken = account.id_token
-    token.refreshToken = account.refresh_token
     token.expiresIn = account.expires_in
+    token.refreshToken = account.refresh_token
    }
    return token
   },
-  async session({ session, token }: { session: Session & { accessToken?: string; idToken?: string }; token: JWT }) {
+  async session({ session, token }: { session: Session & { accessToken?: string; idToken?: string; refreshToken?: string; expiresIn?: number }; token: JWT }) {
    if (token.accessToken) {
     session.accessToken = token.accessToken as string
     session.idToken = token.idToken as string
     session.refreshToken = token.refreshToken as string
-    session.expiresIn = token.expiresIn as string
+    session.expiresIn = token.expiresIn as number
    }
+   console.log(session)
    return session
   },
  },

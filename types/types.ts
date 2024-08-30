@@ -79,6 +79,7 @@ export type ColorOption = {
  name: string
  variable: string
  value: string
+ text: string
 }
 
 declare module 'react' {

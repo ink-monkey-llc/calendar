@@ -6,12 +6,12 @@ import ColorOpt from './color-opt'
 function Colors() {
  return (
   <Floating
+   offsetAmt={4}
    target={
     <div className='flex gap-1 items-center cursor-pointer'>
-     <div className='min-w-4'>
-      <ColorPicker />
+     <div className='min-w-8'>
+      <ColorPicker className='w-8 h-8 opacity-40 hover:opacity-100 transition-all' />
      </div>
-     <p>Colors</p>
     </div>
    }
    placement='left-end'>

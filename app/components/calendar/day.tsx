@@ -1,10 +1,13 @@
+'use client'
 import React from 'react'
 import ColorWrapper from './color-wrapper'
-import type { Day, CalendarEvent, Weather, FormattedWeather } from '@/types/types'
+import { useLocalStorage } from 'usehooks-ts'
+import type { Day, CalendarEvent, Weather, FormattedWeather, ColorOption } from '@/types/types'
 import { cn } from '@/app/lib/utils'
 import { Raindrop } from '../icons/raindrop'
 import dayjs from '@/app/lib/dayjs'
 import { trunc } from '@/app/lib/utils'
+import { colorOptions } from '@/data/color-options'
 
 type Props = {
  day: Day
@@ -13,7 +16,8 @@ type Props = {
  todayWeather?: FormattedWeather
 }
 
-async function Day({ day, index, events, todayWeather }: Props) {
+function Day({ day, index, events, todayWeather }: Props) {
+ const [color, setColor] = useLocalStorage<ColorOption>('color', colorOptions[1])
  const eventsForDay = events?.filter((event) => event.start.date?.includes(day.date) || event.start.dateTime?.includes(day.date))
  const isToday = dayjs().format('YYYY-MM-DD') === day.date
  const dayLabel = trunc(dayjs(day.date).format('dddd'))
@@ -37,12 +41,12 @@ async function Day({ day, index, events, todayWeather }: Props) {
      key={index}>
      <div className=' flex justify-between pr-[6px] pt-[6px]'>
       <div
-       style={{ backgroundColor: 'var(--accent)' }}
-       className='text-[.55rem] flex justify-center items-center  text-white rounded-[4px] py-0.5 mr-1 h-max w-[54px]'>
+       style={{ backgroundColor: color.value, color: color.text }}
+       className='text-[.55rem] font-semibold flex justify-center items-center  rounded-[4px] py-0.5 mr-1 h-max w-[54px]'>
        {dayLabel}
       </div>
       <div
-       style={{ backgroundColor: 'var(--accent)' }}
+       style={{ backgroundColor: color.value, color: color.text }}
        className='flex justify-center text-white text-lg rounded-[4px] w-[29px]'>
        {day.day}
       </div>
@@ -50,16 +54,16 @@ async function Day({ day, index, events, todayWeather }: Props) {
      {eventsForDay?.length > 0 &&
       eventsForDay.map((event) => (
        <div
-        style={{ borderColor: 'var(--accent25)' }}
+        style={{ borderColor: `color-mix(in hsl , var(${color.variable}) 40%, #000 60%)` }}
         className='flex justify-between border-b mr-1 text-[.5rem]'
         key={event.id}>
         <div
-         style={{ color: 'var(--accent)' }}
+         style={{ color: `color-mix(in hsl , var(${color.variable}) 70%, #fff 30%)` }}
          className=''>
          {time(event.start.dateTime)} -{' '}
         </div>
         <div
-         style={{ color: 'var(--accent)' }}
+         style={{ color: `color-mix(in hsl , var(${color.variable}) 60%, #fff 40%)` }}
          className=' truncate '>
          {trunc(event.summary, 13, true)}
         </div>
@@ -67,8 +71,8 @@ async function Day({ day, index, events, todayWeather }: Props) {
       ))}
     </li>
     <div
-     style={{ backgroundColor: 'var(--accent)' }}
-     className='flex justify-between text-xs absolute bottom-[5px] right-[9px] left-[3px]  bg-var-green pl-[6px] rounded-b-xl'>
+     style={{ backgroundColor: color.value, color: color.text }}
+     className='flex justify-between text-xs absolute bottom-[5px] right-[9px] left-[3px] pl-[6px] rounded-b-xl'>
      <div className={cn(todayWeather ? 'opacity-100' : 'opacity-0')}>
       {minTemp}°/ {maxTemp}°
      </div>

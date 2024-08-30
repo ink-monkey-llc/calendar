@@ -11,26 +11,22 @@
   --grey-800: #3e4e63;
   --grid-gap: 1px;
   --day-label-size: 20px;
-  --orange-hsl: 32, 93%, 54%;
-  --red-hsl: 359, 85%, 53%;
-  --sky-hsl: 197, 81%, 58%;
-  --yellow-hsl: 53, 91%, 50%;
-  --blue-hsl: 225, 46%, 45%;
-  --pink-hsl: 330, 85%, 56%;
-  --light-pink-hsl: 332, 73%, 84%;
-  --purple-hsl: 287, 34%, 46%;
-  --white-hsl: 180, 1%, 85%;
-  --green-hsl: 143, 71%, 31%;
+  --orange: hsl(32, 93%, 54%);
+  --red: hsl(359, 85%, 53%);
+  --sky: hsl(197, 81%, 58%);
+  --yellow: hsl(53, 91%, 50%);
+  --blue: hsl(225, 46%, 45%);
+  --pink: hsl(330, 85%, 56%);
+  --light-pink: hsl(332, 73%, 84%);
+  --purple: hsl(287, 34%, 46%);
+  --white: hsl(180, 1%, 85%);
+  --green: hsl(143, 71%, 31%);
 }
 
 body {
   color: var(--fg-primary);
   background: var(--bg-primary);
-  --accent-hsl: var(--blue-hsl);
-  --accent: hsl(var(--accent-hsl));
-  --accent25: hsl(var(--accent-hsl), 25%);
-  --accent50: hsl(var(--accent-hsl), 50%);
-  --accent75: hsl(var(--accent-hsl), 75%);
+
 }
 
 
