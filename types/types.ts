@@ -45,6 +45,30 @@ export type Coords = {
  importance: number
 }
 
+export type HistWeatherData = {
+ latitde: number
+ longitude: number
+ generationtime_ms: number
+ utc_offset_seconds: number
+ timezone: string
+ timezone_abbreviation: string
+ elevation: number
+ daily_units: {
+  time: string
+  temperature_2m_max: string
+  temperature_2m_min: string
+  precipitation_sum: string
+  precipitation_hours: string
+ }
+ daily: {
+  time: string[]
+  temperature_2m_max: number[]
+  temperature_2m_min: number[]
+  precipitation_sum: number[]
+  precipitation_hours: number[]
+ }
+}
+
 export type Weather = {
  latitude: number
  longitude: number
@@ -80,6 +104,7 @@ export type ColorOption = {
  variable: string
  value: string
  text: string
+ ul: string
 }
 
 declare module 'react' {

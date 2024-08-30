@@ -20,6 +20,13 @@ export function makeCurrMonthDays(year: number, month: number) {
  return days
 }
 
+export const firstDayOfMonth = (month: number, year: number) =>
+ dayjs()
+  .month(month - 1)
+  .year(year)
+  .date(1)
+  .format('YYYY-MM-DD')
+
 const currentMonthDays = (year: number, month: number) => makeCurrMonthDays(year, month)
 
 export function getWeekday(date: string) {
@@ -46,9 +53,8 @@ export function makePrevMonthDays(year: number, month: number) {
 }
 
 export function makeNextMonthDays(year: number, month: number) {
- const lastDayWeekday = getWeekday(`${year}-${month}-${currentMonthDays(year, month).length}`)
-
- const visibleDaysNextMonth = lastDayWeekday ? 7 - lastDayWeekday : lastDayWeekday
+ const thisMonthDays = daysInMonth(year, month)
+ const visibleDaysNextMonth = 33 - thisMonthDays
 
  const days = [...Array(visibleDaysNextMonth)].map((day, i) => {
   return {
@@ -69,5 +75,5 @@ export const days = (year: number, month: number) => {
  const prevMonthDays = makePrevMonthDays(year, month - 1)
 
  //  return [...prevMonthDays, ...currMonthDays, ...nextMonthDays]
- return currMonthDays
+ return [...currMonthDays, ...nextMonthDays]
 }

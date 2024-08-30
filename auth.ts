@@ -44,7 +44,7 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
     session.refreshToken = token.refreshToken as string
     session.expiresIn = token.expiresIn as number
    }
-   console.log(session)
+   //    console.log(session)
    return session
   },
  },

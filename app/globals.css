@@ -12,15 +12,25 @@
   --grid-gap: 1px;
   --day-label-size: 20px;
   --orange: hsl(32, 93%, 54%);
+  --orange25: #f7911d40;
   --red: hsl(359, 85%, 53%);
+  --red25: #ed212540;
   --sky: hsl(197, 81%, 58%);
+  --sky25: #3db9eb40;
   --yellow: hsl(53, 91%, 50%);
+  --yellow25: #f4d80b40;
   --blue: hsl(225, 46%, 45%);
+  --blue25: #3e58a840;
   --pink: hsl(330, 85%, 56%);
+  --pink25: #ee2f8f40;
   --light-pink: hsl(332, 73%, 84%);
+  --light-pink25: #f4b8d440;
   --purple: hsl(287, 34%, 46%);
+  --purple25: #8c4d9d40;
   --white: hsl(180, 1%, 85%);
+  --white25: #d8d9d940;
   --green: hsl(143, 71%, 31%);
+  --green25: rgba(23, 135, 66, 0.25);
 }
 
 body {

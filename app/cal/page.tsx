@@ -9,12 +9,12 @@ function Cal({ searchParams }: { searchParams: { [key: string]: string | string[
  const initMonth = Number(dayjs().format('M'))
  const { month, year } = searchParams.m ? splitDateString(searchParams.m as string) : { month: initMonth, year: initYear }
  return (
-  <div className='relative calendar-wrapper w-max p-4 flex items-end '>
+  <div className='relative calendar-wrapper w-max p-4 pt-2 flex items-end '>
    <Calendar
     month={month}
     year={year}
    />
-   <div className='absolute right-4 bottom-4'>
+   <div className='absolute right-8 top-2'>
     <Colors />
    </div>
   </div>

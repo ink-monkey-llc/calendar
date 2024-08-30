@@ -15,7 +15,7 @@ function Colors() {
     </div>
    }
    placement='left-end'>
-   <div className='bg-black z-50 relative rounded-xl p-1 flex flex-col gap-1'>
+   <div className='bg-black z-50 relative rounded-xl p-1 flex  gap-1'>
     {colorOptions.map((opt) => (
      <ColorOpt
       key={opt.id}

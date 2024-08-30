@@ -21,7 +21,7 @@ function Day({ day, index, events, todayWeather }: Props) {
  const eventsForDay = events?.filter((event) => event.start.date?.includes(day.date) || event.start.dateTime?.includes(day.date))
  const isToday = dayjs().format('YYYY-MM-DD') === day.date
  const dayLabel = trunc(dayjs(day.date).format('dddd'))
-
+ const isThisMonth = day.isCurrentMonth
  const maxTemp = todayWeather ? Math.round(todayWeather?.maxTemp) : 0
  const minTemp = todayWeather ? Math.round(todayWeather?.minTemp) : 0
  const precip = todayWeather ? Math.round(todayWeather?.precipProb) : 0
@@ -33,7 +33,7 @@ function Day({ day, index, events, todayWeather }: Props) {
   }
  }
  return (
-  <div className='relative day-bg '>
+  <div className={cn('relative day-bg opacity-40', isThisMonth && 'opacity-100')}>
    <div className='absolute bg-black rounded-xl top-[9px] right-[9px] left-[4px] bottom-[4px] z-0'></div>
    <div className='aspect-square relative rounded-lg z-10 flex justify-between flex-col'>
     <li
@@ -54,16 +54,16 @@ function Day({ day, index, events, todayWeather }: Props) {
      {eventsForDay?.length > 0 &&
       eventsForDay.map((event) => (
        <div
-        style={{ borderColor: `color-mix(in hsl , var(${color.variable}) 40%, #000 60%)` }}
-        className='flex justify-between border-b mr-1 text-[.5rem]'
+        style={{ borderColor: color.ul }}
+        className='flex justify-between border-b mr-1 text-[.5rem] text-white'
         key={event.id}>
         <div
-         style={{ color: `color-mix(in hsl , var(${color.variable}) 70%, #fff 30%)` }}
+         style={{ color: color.value }}
          className=''>
          {time(event.start.dateTime)} -{' '}
         </div>
         <div
-         style={{ color: `color-mix(in hsl , var(${color.variable}) 60%, #fff 40%)` }}
+         style={{ color: color.value }}
          className=' truncate '>
          {trunc(event.summary, 13, true)}
         </div>
@@ -72,11 +72,11 @@ function Day({ day, index, events, todayWeather }: Props) {
     </li>
     <div
      style={{ backgroundColor: color.value, color: color.text }}
-     className='flex justify-between text-xs absolute bottom-[5px] right-[9px] left-[3px] pl-[6px] rounded-b-xl'>
-     <div className={cn(todayWeather ? 'opacity-100' : 'opacity-0')}>
+     className='flex justify-between font-semibold text-xs absolute bottom-[5px] right-[9px] left-[3px] pl-[6px] rounded-b-xl'>
+     <div className={cn(todayWeather ? 'opacity-100' : 'opacity-0', precip === 100 && 'text-[.7rem]')}>
       {minTemp}°/ {maxTemp}°
      </div>
-     <div className={cn('flex justify-end items-start', todayWeather ? 'opacity-100' : 'opacity-0')}>
+     <div className={cn('flex justify-end items-start', todayWeather ? 'opacity-100' : 'opacity-0', precip === 100 && 'text-[.7rem]')}>
       {precip}% <Raindrop className='w-4 h-4 -ml-1 -mt-0.5' />
      </div>
     </div>
