@@ -36,7 +36,7 @@
 body {
   color: var(--fg-primary);
   background: var(--bg-primary);
-
+  scrollbar-width: thin;
 }
 
 
@@ -45,6 +45,19 @@ body {
   .text-balance {
     text-wrap: balance;
   }
+}
+
+.scrollbar-thin {
+  scrollbar-width: thin;
+  scrollbar-color: var(--bg-primary) transparent;
+}
+
+.hover-bg {
+  background-color: black
+}
+
+.hover-bg:hover {
+  background-color: var(--current);
 }
 
 .calendar-wrapper {

@@ -23,7 +23,12 @@ function DetailContent({ day, events }: { day: Day; events: CalendarEvent[] }) {
     <span>{dayLabel}</span>
     <span className='text-lg'>{dayjs(day.date).format('MMMM D, YYYY')}</span>
    </div>
-   <div className='bg-black mr-3 h-56'>
+   <div
+    style={{
+     scrollbarWidth: 'thin',
+     scrollbarColor: `${currentColor.value} transparent`,
+    }}
+    className='bg-black mr-[14px] h-56 overflow-y-scroll'>
     {events.map((event, index) => (
      <DayEvent
       key={event.id}

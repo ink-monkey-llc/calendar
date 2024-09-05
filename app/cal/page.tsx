@@ -2,7 +2,6 @@ import React from 'react'
 import Calendar from '../components/calendar/calendar'
 import { splitDateString } from '@/app/lib/utils'
 import dayjs from '../lib/dayjs'
-import Settings from '../components/settings/settings'
 import Colors from '../components/settings/colors'
 function Cal({ searchParams }: { searchParams: { [key: string]: string | string[] | undefined } }) {
  const initYear = Number(dayjs().format('YYYY'))

@@ -1,7 +1,7 @@
 import Floating from '../floating'
-import { ColorPicker } from '../icons/color-picker'
 import { colorOptions } from '@/data/color-options'
 import ColorOpt from './color-opt'
+import { Palette } from '../icons/palette'
 
 function Colors() {
  return (
@@ -10,7 +10,7 @@ function Colors() {
    target={
     <div className='flex gap-1 items-center cursor-pointer'>
      <div className='min-w-8'>
-      <ColorPicker className='w-8 h-8 opacity-40 hover:opacity-100 transition-all' />
+      <Palette className='w-8 h-8 opacity-40 hover:opacity-100 transition-all' />
      </div>
     </div>
    }

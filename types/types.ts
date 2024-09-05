@@ -121,5 +121,6 @@ declare module 'react' {
   '--alpha'?: string
   '--accent'?: string
   '--accent-hsl'?: string
+  '--current'?: string
  }
 }
