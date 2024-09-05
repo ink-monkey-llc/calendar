@@ -98,6 +98,15 @@ export type FormattedWeather = {
  precipProb: number
 }
 
+export const colorDefault: ColorOption = {
+ id: '',
+ name: '',
+ variable: '',
+ value: '',
+ text: '',
+ ul: '',
+}
+
 export type ColorOption = {
  id: string
  name: string

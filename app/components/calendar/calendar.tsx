@@ -8,6 +8,7 @@ import Day from './day'
 import dayjs from '@/app/lib/dayjs'
 import { getWeather } from '@/actions/weather'
 import MonthSelect from './month-select'
+import DayDetail from '../detail/day-detail'
 
 async function Calendar({ month, year }: { month: number; year: number }) {
  const session = await auth()
