@@ -17,6 +17,10 @@ const config: Config = {
     'var-green': '#178942',
    },
   },
+  screens: {
+   tablet: '780px',
+   desktop: '1221px',
+  },
  },
  plugins: [],
 }

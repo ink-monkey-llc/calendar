@@ -33,7 +33,7 @@ async function Calendar({ month, year }: { month: number; year: number }) {
     month={month}
     year={year}
    />
-   <ul className='grid grid-cols-11 h-full  border-t-black'>
+   <ul className='grid grid-cols-4 tablet:grid-cols-7 desktop:grid-cols-11 h-full  border-t-black'>
     {days(year, month).map((day, index) => {
      const todayWeather = weather.filter((weather) => weather.date === day.date)
      return (
