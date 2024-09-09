@@ -1,18 +1,20 @@
-import {
- Dialog,
- DialogTrigger,
- DialogContent,
- DialogTitle,
- DialogImage,
- DialogSubtitle,
- DialogClose,
- DialogDescription,
- DialogContainer,
-} from '@/app/components/motion/dialog'
+import { Dialog, DialogTrigger, DialogContent, DialogContainer } from '@/app/components/motion/dialog'
 import DetailContent from './detail-content'
-import { CalendarEvent, ColorOption, Day } from '@/types/types'
+import { CalendarEvent, ColorOption, Day, FormattedWeather } from '@/types/types'
 
-function DayDetail({ children, day, events, currentColor }: { children: React.ReactNode; day: Day; events: CalendarEvent[]; currentColor: ColorOption }) {
+function DayDetail({
+ children,
+ day,
+ events,
+ currentColor,
+ todayWeather,
+}: {
+ children: React.ReactNode
+ day: Day
+ events: CalendarEvent[]
+ currentColor: ColorOption
+ todayWeather?: FormattedWeather
+}) {
  return (
   <Dialog
    transition={{
@@ -38,6 +40,7 @@ function DayDetail({ children, day, events, currentColor }: { children: React.Re
        className='absolute top-[32px] left-8 right-[54px] bottom-4 rounded-[60px]'
       />
       <DetailContent
+       todayWeather={todayWeather}
        events={events}
        day={day}
       />

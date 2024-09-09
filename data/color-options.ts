@@ -5,7 +5,7 @@ export const colorOptions = [
   variable: '--green',
   value: '#178942',
   text: '#ffffff',
-  ul: '#17874240',
+  ul: '#17874230',
  },
  {
   id: 'or',
@@ -13,7 +13,7 @@ export const colorOptions = [
   variable: '--orange',
   value: '#F7921D',
   text: '#000000',
-  ul: '#f7911d40',
+  ul: '#f7911d30',
  },
  {
   id: 're',
@@ -21,7 +21,7 @@ export const colorOptions = [
   variable: '--red',
   value: '#ED2024',
   text: '#ffffff',
-  ul: '#ed212540',
+  ul: '#ed212530',
  },
  {
   id: 'sk',
@@ -29,7 +29,7 @@ export const colorOptions = [
   variable: '--sky',
   value: '#3FBAEB',
   text: '#000000',
-  ul: '#3db9eb40',
+  ul: '#3db9eb30',
  },
  {
   id: 'yl',
@@ -37,7 +37,7 @@ export const colorOptions = [
   variable: '--yellow',
   value: '#F4D90D',
   text: '#000000',
-  ul: '#f4d80b40',
+  ul: '#f4d80b30',
  },
  {
   id: 'bl',
@@ -45,7 +45,7 @@ export const colorOptions = [
   variable: '--blue',
   value: '#3D58A7',
   text: '#ffffff',
-  ul: '#3e58a840',
+  ul: '#3e58a830',
  },
  {
   id: 'pi',
@@ -53,7 +53,7 @@ export const colorOptions = [
   variable: '--pink',
   value: '#EE3291',
   text: '#ffffff',
-  ul: '#ee2f8f40',
+  ul: '#ee2f8f30',
  },
  {
   id: 'lp',
@@ -61,7 +61,7 @@ export const colorOptions = [
   variable: '--light-pink',
   value: '#F4BAD5',
   text: '#000000',
-  ul: '#f4b8d440',
+  ul: '#f4b8d430',
  },
  {
   id: 'pu',
@@ -69,7 +69,7 @@ export const colorOptions = [
   variable: '--purple',
   value: '#8E4E9F',
   text: '#ffffff',
-  ul: '#8c4d9d40',
+  ul: '#8c4d9d30',
  },
  {
   id: 'wh',
@@ -77,6 +77,6 @@ export const colorOptions = [
   variable: '--white',
   value: '#D8D9D9',
   text: '#000000',
-  ul: '#d8d9d940',
+  ul: '#d8d9d930',
  },
 ]

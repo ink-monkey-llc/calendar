@@ -1,13 +1,14 @@
 'use client'
 import { useState, useEffect } from 'react'
-import { CalendarEvent, ColorOption, Day, colorDefault } from '@/types/types'
+import { CalendarEvent, ColorOption, Day, FormattedWeather, colorDefault } from '@/types/types'
 import { cn } from '@/app/lib/utils'
 import React from 'react'
 import { useLocalStorage } from 'usehooks-ts'
 import dayjs from '@/app/lib/dayjs'
 import DayEvent from './day-event'
+import { Raindrop } from '../icons/raindrop'
 
-function DetailContent({ day, events }: { day: Day; events: CalendarEvent[] }) {
+function DetailContent({ day, events, todayWeather }: { day: Day; events: CalendarEvent[]; todayWeather?: FormattedWeather }) {
  const [color, setColor] = useLocalStorage<ColorOption>('color', colorDefault)
  const [currentColor, setCurrentColor] = useState<ColorOption>(color)
 
@@ -37,6 +38,18 @@ function DetailContent({ day, events }: { day: Day; events: CalendarEvent[] }) {
      />
     ))}
    </div>
+   {todayWeather && (
+    <div
+     className='flex justify-between'
+     style={{ color: currentColor.text }}>
+     <div className='text-3xl ml-4 mt-2'>
+      {todayWeather.minTemp}° / {todayWeather.maxTemp}°
+     </div>
+     <div className='flex items-center mr-8 mt-2 text-3xl'>
+      {todayWeather.precipProb}% <Raindrop className='w-8 h-8 -ml-1 -mt-0.5' />
+     </div>
+    </div>
+   )}
   </div>
  )
 }

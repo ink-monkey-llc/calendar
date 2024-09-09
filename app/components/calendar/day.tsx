@@ -38,6 +38,7 @@ function Day({ day, index, events, todayWeather }: Props) {
  }
  return (
   <DayDetail
+   todayWeather={todayWeather}
    events={eventsForDay}
    currentColor={currentColor}
    day={day}>
