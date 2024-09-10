@@ -20,9 +20,9 @@ function DetailContent({ day, events, todayWeather }: { day: Day; events: Calend
   <div className='z-40 relative pl-2 pr-4 pt-2 '>
    <div
     style={{ color: currentColor.text }}
-    className='flex justify-between items-center mr-4 text-2xl h-16 pl-8 pr-6 pt-4 '>
+    className='flex justify-between items-center mr-4 text-xl tablet:text-2xl h-16 pl-8 pr-6 pt-4 '>
     <span>{dayLabel}</span>
-    <span className='text-lg'>{dayjs(day.date).format('MMMM D, YYYY')}</span>
+    <span className='text-base tablet:text-lg'>{dayjs(day.date).format('MMMM D, YYYY')}</span>
    </div>
    <div
     style={{
@@ -42,10 +42,10 @@ function DetailContent({ day, events, todayWeather }: { day: Day; events: Calend
     <div
      className='flex justify-between'
      style={{ color: currentColor.text }}>
-     <div className='text-3xl ml-4 mt-2'>
+     <div className='text-2xl tablet:text-3xl ml-4 mt-2'>
       {todayWeather.minTemp}° / {todayWeather.maxTemp}°
      </div>
-     <div className='flex items-center mr-8 mt-2 text-3xl'>
+     <div className='flex items-center mr-8 mt-2 text-2xl tablet:text-3xl'>
       {todayWeather.precipProb}% <Raindrop className='w-8 h-8 -ml-1 -mt-0.5' />
      </div>
     </div>

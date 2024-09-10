@@ -25,6 +25,8 @@ function DayDetail({
    <DialogTrigger
     style={{
      borderRadius: '12px',
+     width: 'max-content',
+     marginInline: 'auto',
     }}>
     {children}
    </DialogTrigger>
@@ -33,8 +35,8 @@ function DayDetail({
      style={{
       borderRadius: '12px',
      }}
-     className='relative w-[500px] h-[400px]'>
-     <div className='relative p-6 detail-bg h-full w-full'>
+     className='relative w-[500px] h-[400px] m-auto'>
+     <div className='relative p-6 detail-bg h-full w-full left-2 tablet:left-auto '>
       <div
        style={{ backgroundColor: currentColor.value }}
        className='absolute top-[32px] left-8 right-[54px] bottom-4 rounded-[60px]'

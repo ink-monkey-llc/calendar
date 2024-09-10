@@ -3,10 +3,12 @@ import { CalendarEvent, FormattedWeather } from '@/types/types'
 import { useWindowSize } from 'usehooks-ts'
 import React from 'react'
 import Day from './day'
+import DayMobile from './day-mobile'
 import { days } from '@/app/lib/date-utils'
 
 function Days({ year, month, events, weather }: { year: number; month: number; events: CalendarEvent[]; weather: FormattedWeather[] }) {
  const { width } = useWindowSize()
+ const isMobile = width < 780
  const calSize = (width: number) => {
   if (width < 780) {
    return 32
@@ -22,13 +24,25 @@ function Days({ year, month, events, weather }: { year: number; month: number; e
    {daysArray.map((day, index) => {
     const todayWeather = weather.filter((weather) => weather.date === day.date)
     return (
-     <Day
-      todayWeather={todayWeather[0]}
-      events={events as CalendarEvent[]}
-      key={index}
-      day={day}
-      index={index}
-     />
+     <>
+      {isMobile ? (
+       <DayMobile
+        todayWeather={todayWeather[0]}
+        events={events as CalendarEvent[]}
+        key={index}
+        day={day}
+        index={index}
+       />
+      ) : (
+       <Day
+        todayWeather={todayWeather[0]}
+        events={events as CalendarEvent[]}
+        key={index}
+        day={day}
+        index={index}
+       />
+      )}
+     </>
     )
    })}
   </>
