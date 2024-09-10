@@ -12,7 +12,7 @@ function MonthSelect({ month, year }: { month: number; year: number }) {
   .month(month - 1)
   .format('MMMM')
  return (
-  <div className='flex items-center justify-between gap-3 text-2xl w-32 m-auto'>
+  <div className='flex items-center justify-center gap-3 text-2xl  mx-auto w-full'>
    <Link
     href={`/cal?m=${getLastMonthYear(month, year)}`}
     className='cursor-pointer '>

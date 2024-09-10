@@ -52,26 +52,28 @@ export function makePrevMonthDays(year: number, month: number) {
  return days
 }
 
-export function makeNextMonthDays(year: number, month: number) {
+export function makeNextMonthDays(year: number, month: number, calSize: number) {
  const thisMonthDays = daysInMonth(year, month)
- const visibleDaysNextMonth = 33 - thisMonthDays
+ const num = calSize - thisMonthDays
 
- const days = [...Array(visibleDaysNextMonth)].map((day, i) => {
-  return {
-   date: dayjs()
-    .year(year)
-    .month(month + 1)
-    .date(i + 1)
-    .format('YYYY-MM-DD'),
-   day: i + 1,
-   isCurrentMonth: false,
-  }
- })
- return days
+ const days = (num: number) =>
+  [...Array(num)].map((day, i) => {
+   return {
+    date: dayjs()
+     .year(year)
+     .month(month + 1)
+     .date(i + 1)
+     .format('YYYY-MM-DD'),
+    day: i + 1,
+    isCurrentMonth: false,
+   }
+  })
+
+ return days(num)
 }
-export const days = (year: number, month: number) => {
+export const days = (year: number, month: number, calSize: number) => {
  const currMonthDays = makeCurrMonthDays(year, month - 1)
- const nextMonthDays = makeNextMonthDays(year, month - 1)
+ const nextMonthDays = makeNextMonthDays(year, month - 1, calSize)
  const prevMonthDays = makePrevMonthDays(year, month - 1)
 
  //  return [...prevMonthDays, ...currMonthDays, ...nextMonthDays]

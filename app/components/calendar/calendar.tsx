@@ -9,6 +9,7 @@ import dayjs from '@/app/lib/dayjs'
 import { getWeather } from '@/actions/weather'
 import MonthSelect from './month-select'
 import DayDetail from '../detail/day-detail'
+import Days from './days'
 
 async function Calendar({ month, year }: { month: number; year: number }) {
  const session = await auth()
@@ -34,18 +35,12 @@ async function Calendar({ month, year }: { month: number; year: number }) {
     year={year}
    />
    <ul className='grid grid-cols-4 tablet:grid-cols-7 desktop:grid-cols-11 h-full  border-t-black'>
-    {days(year, month).map((day, index) => {
-     const todayWeather = weather.filter((weather) => weather.date === day.date)
-     return (
-      <Day
-       todayWeather={todayWeather[0]}
-       events={events as CalendarEvent[]}
-       key={index}
-       day={day}
-       index={index}
-      />
-     )
-    })}
+    <Days
+     year={year}
+     month={month}
+     events={events as CalendarEvent[]}
+     weather={weather}
+    />
    </ul>
   </div>
  )
