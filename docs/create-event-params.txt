@@ -1,0 +1,7 @@
+Summary              string
+Date               date
+StartTime?         date
+EndTime?           date
+Description?       string
+Location?          string
+Recurrence?        array

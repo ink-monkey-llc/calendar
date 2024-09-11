@@ -6,6 +6,8 @@ import { signOut, signIn, auth } from '@/auth'
 import dayjs from '../lib/dayjs'
 import Colors from '../components/settings/colors'
 import { Logout } from '../components/icons/logout'
+import CreateContent from '../components/create/create-content'
+import CreateDialog from '../components/create/create-dialog'
 
 async function Cal({ searchParams }: { searchParams: { [key: string]: string | string[] | undefined } }) {
  const initYear = Number(dayjs().format('YYYY'))
@@ -27,12 +29,13 @@ async function Cal({ searchParams }: { searchParams: { [key: string]: string | s
  }
 
  return (
-  <div className='relative calendar-wrapper tablet:w-max m-auto p-4 pt-2 flex items-start justify-center h-[100vh] tablet:h-full'>
+  <div className='relative calendar-wrapper lg-mb:w-max m-auto p-4 pt-2 flex items-start justify-center h-[100vh] lg-mb:h-full'>
    <Calendar
     month={month}
     year={year}
    />
    <div className='absolute flex gap-2 right-4 tablet:right-8 top-2'>
+    <CreateDialog />
     <Colors />
     <form action={handleAction}>
      <button>

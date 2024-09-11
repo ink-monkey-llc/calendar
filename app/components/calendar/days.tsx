@@ -8,7 +8,7 @@ import { days } from '@/app/lib/date-utils'
 
 function Days({ year, month, events, weather }: { year: number; month: number; events: CalendarEvent[]; weather: FormattedWeather[] }) {
  const { width } = useWindowSize()
- const isMobile = width < 780
+ const isMobile = width < 465
  const calSize = (width: number) => {
   if (width < 780) {
    return 32
@@ -20,11 +20,11 @@ function Days({ year, month, events, weather }: { year: number; month: number; e
  }
  const daysArray = days(year, month, calSize(width))
  return (
-  <>
+  <ul className='grid grid-cols-4 tablet:grid-cols-7 desktop:grid-cols-11 h-full  border-t-black w-full mt-2 tablet:mt-0'>
    {daysArray.map((day, index) => {
     const todayWeather = weather.filter((weather) => weather.date === day.date)
     return (
-     <>
+     <div key={day.date}>
       {isMobile ? (
        <DayMobile
         todayWeather={todayWeather[0]}
@@ -42,10 +42,10 @@ function Days({ year, month, events, weather }: { year: number; month: number; e
         index={index}
        />
       )}
-     </>
+     </div>
     )
    })}
-  </>
+  </ul>
  )
 }
 

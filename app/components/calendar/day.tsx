@@ -36,6 +36,9 @@ function Day({ day, index, events, todayWeather }: Props) {
    return 'All day'
   }
  }
+
+ const eventColor = currentColor.value ? currentColor.value : 'white'
+
  return (
   <DayDetail
    todayWeather={todayWeather}
@@ -67,12 +70,12 @@ function Day({ day, index, events, todayWeather }: Props) {
          className='flex justify-between border-b mr-1 text-[.5rem] text-white'
          key={event.id}>
          <div
-          style={{ color: currentColor.value }}
+          style={{ color: eventColor }}
           className=''>
           {time(event.start.dateTime)} -{' '}
          </div>
          <div
-          style={{ color: currentColor.value }}
+          style={{ color: eventColor }}
           className=' truncate '>
           {trunc(event.summary, 13, true)}
          </div>

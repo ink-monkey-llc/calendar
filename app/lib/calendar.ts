@@ -16,6 +16,7 @@ export async function getGoogleCalendarEvents(accessToken: string, idToken: stri
    singleEvents: true,
    orderBy: 'startTime',
   })
+  console.log(events?.data)
   return events.data.items || []
  } catch (e) {
   console.log(e)

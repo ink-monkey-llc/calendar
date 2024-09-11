@@ -47,6 +47,16 @@ body {
   }
 }
 
+input:focus-within {
+  outline: none;
+}
+
+.react-datepicker__calendar-icon {
+  top: 1px;
+  left: -6px;
+  fill: white;
+}
+
 
 
 .scrollbar-thin {

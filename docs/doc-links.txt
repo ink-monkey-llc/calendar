@@ -1,0 +1,3 @@
+
+Recurring Events:
+https://developers.google.com/calendar/api/concepts/events-calendars#recurring_events

@@ -27,7 +27,6 @@ function DayMobile({ day, index, events, todayWeather }: Props) {
  const maxTemp = todayWeather ? Math.round(todayWeather?.maxTemp) : 0
  const minTemp = todayWeather ? Math.round(todayWeather?.minTemp) : 0
  const precip = todayWeather ? Math.round(todayWeather?.precipProb) : 0
- const isPro = width > 400
  useEffect(() => {
   setCurrentColor(color)
  }, [color])
@@ -44,7 +43,7 @@ function DayMobile({ day, index, events, todayWeather }: Props) {
    events={eventsForDay}
    currentColor={currentColor}
    day={day}>
-   <div className={cn('relative day-bg opacity-40 max-w-[87px]', isThisMonth && 'opacity-100', isPro && 'mb-2')}>
+   <div className={cn('relative day-bg opacity-40 max-w-[87px]', isThisMonth && 'opacity-100', width > 420 && 'mb-2')}>
     <div className='absolute bg-black rounded-xl top-[9px] right-[9px] left-[4px] bottom-[4px] z-0'></div>
     <div className='aspect-square relative rounded-lg z-10 flex justify-between flex-col'>
      <li

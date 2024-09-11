@@ -34,14 +34,12 @@ async function Calendar({ month, year }: { month: number; year: number }) {
     month={month}
     year={year}
    />
-   <ul className=' grid grid-cols-4 tablet:grid-cols-7 desktop:grid-cols-11 h-full  border-t-black w-full'>
-    <Days
-     year={year}
-     month={month}
-     events={events as CalendarEvent[]}
-     weather={weather}
-    />
-   </ul>
+   <Days
+    year={year}
+    month={month}
+    events={events as CalendarEvent[]}
+    weather={weather}
+   />
   </div>
  )
 }
