@@ -1,0 +1,43 @@
+import React from 'react'
+import DatePicker from 'react-datepicker'
+
+function DateRange({
+ startDate,
+ endDate,
+ setStartDate,
+ setEndDate,
+}: {
+ startDate: Date
+ endDate: Date
+ setStartDate: React.Dispatch<React.SetStateAction<Date>>
+ setEndDate: React.Dispatch<React.SetStateAction<Date>>
+}) {
+ return (
+  <div className='border flex gap-2 items-center justify-between w-max border-white/20  rounded-lg pl-2 mt-2'>
+   <DatePicker
+    selected={startDate}
+    popperPlacement='left-start'
+    className='bg-transparent cursor-pointer w-36 text-sm'
+    onChange={(date) => setStartDate(date as Date)}
+    dateFormat='MMMM d, yyyy'
+    selectsStart
+    startDate={startDate}
+    endDate={endDate}
+   />
+   <span>-</span>
+   <DatePicker
+    selected={endDate}
+    popperPlacement='left-start'
+    className='bg-transparent w-36 cursor-pointer text-sm ml-2'
+    onChange={(date) => setEndDate(date as Date)}
+    dateFormat='MMMM d, yyyy'
+    selectsEnd
+    startDate={startDate}
+    endDate={endDate}
+    minDate={startDate}
+   />
+  </div>
+ )
+}
+
+export default DateRange
