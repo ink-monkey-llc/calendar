@@ -11,6 +11,7 @@
  },
  "dependencies": {
   "@floating-ui/react": "^0.26.23",
+  "@googlemaps/js-api-loader": "^1.16.8",
   "clsx": "^2.1.1",
   "dayjs": "^1.11.13",
   "framer-motion": "^11.3.31",

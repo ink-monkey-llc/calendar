@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-function Description() {
+function Description({ description, setDescription }: { description: string; setDescription: React.Dispatch<React.SetStateAction<string>> }) {
  const [active, setActive] = useState(false)
  return (
   <div className='mt-2'>
@@ -27,6 +27,8 @@ function Description() {
      <textarea
       id='description'
       name='description'
+      value={description}
+      onChange={(e) => setDescription(e.target.value)}
       className='rounded-lg w-full text-sm bg-transparent border border-white/20 focus-within:border-white/80'
      />
     </>

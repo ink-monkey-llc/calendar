@@ -23,7 +23,7 @@ function CreateDialog() {
     <CreateIcon className='w-8 h-8 opacity-40 hover:opacity-100 transition-all cursor-pointer' />
    </DialogTrigger>
    <DialogContainer>
-    <DialogContent className='relative w-[500px] h-[400px] m-auto'>
+    <DialogContent className='relative w-[500px] h-[450px] m-auto'>
      <div className='relative p-6 detail-bg h-full w-full left-2 tablet:left-auto '>
       <h2 className='text-2xl pt-5  z-50 relative text-center'>Create Event</h2>
       <div

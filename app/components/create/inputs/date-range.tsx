@@ -12,13 +12,20 @@ function DateRange({
  setStartDate: React.Dispatch<React.SetStateAction<Date>>
  setEndDate: React.Dispatch<React.SetStateAction<Date>>
 }) {
+ const onStartDateChange = (date: Date) => {
+  setStartDate(date)
+  if (date > endDate) {
+   setEndDate(date)
+  }
+ }
+
  return (
   <div className='border flex gap-2 items-center justify-between w-max border-white/20  rounded-lg pl-2 mt-2'>
    <DatePicker
     selected={startDate}
     popperPlacement='left-start'
     className='bg-transparent cursor-pointer w-36 text-sm'
-    onChange={(date) => setStartDate(date as Date)}
+    onChange={(date) => onStartDateChange(date as Date)}
     dateFormat='MMMM d, yyyy'
     selectsStart
     startDate={startDate}

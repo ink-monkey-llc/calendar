@@ -2,13 +2,29 @@ import React from 'react'
 import { CheckIcon } from '../../icons/check'
 import { cn } from '@/app/lib/utils'
 
-function AllDay({ allDay, setAllDay }: { allDay: boolean; setAllDay: React.Dispatch<React.SetStateAction<boolean>> }) {
+function AllDay({
+ allDay,
+ setAllDay,
+ setTimes,
+}: {
+ allDay: boolean
+ setAllDay: React.Dispatch<React.SetStateAction<boolean>>
+ setTimes: React.Dispatch<React.SetStateAction<{ startTime: string; endTime: string }>>
+}) {
+ const handleClick = () => {
+  if (!allDay) {
+   setTimes({ startTime: '', endTime: '' })
+  }
+  setAllDay(!allDay)
+ }
+
  return (
   <div
-   onClick={() => setAllDay(!allDay)}
+   onClick={handleClick}
    className='flex gap-2 items-center mt-auto mb-1 ml-3 cursor-pointer'>
    <input
     checked={allDay}
+    onChange={() => setAllDay(allDay)}
     className='hidden'
     name='allDay'
     id='allDay'

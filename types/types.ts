@@ -124,3 +124,9 @@ declare module 'react' {
   '--current'?: string
  }
 }
+
+export type Place = {
+ name: any
+ text: string
+ place_id: string
+}
