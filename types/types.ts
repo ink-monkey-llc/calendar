@@ -132,9 +132,9 @@ export type Place = {
 }
 
 export type DateType = {
- date: string
- dateTime: Date
- timeZone: string
+ date?: string
+ dateTime?: string
+ timeZone?: string
 }
 
 export type Event = {

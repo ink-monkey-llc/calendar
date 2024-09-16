@@ -1,15 +1,10 @@
 import React from 'react'
-import { days } from '../../lib/date-utils'
-import { getLastMonthYear, getNextMonthYear } from '@/app/lib/utils'
 import { getGoogleCalendarEvents } from '@/app/lib/calendar'
 import type { CalendarEvent } from '@/types/types'
 import { auth } from '@/auth'
-import dayjs from '@/app/lib/dayjs'
 import { getWeather } from '@/actions/weather'
 import MonthSelect from './month-select'
-import DayDetail from '../detail/day-detail'
 import dynamic from 'next/dynamic'
-// import Days from './days'
 
 async function Calendar({ month, year }: { month: number; year: number }) {
  const Days = dynamic(() => import('./days'), { ssr: false })
@@ -23,11 +18,6 @@ async function Calendar({ month, year }: { month: number; year: number }) {
  const events = await getGoogleCalendarEvents(session.accessToken, session.idToken, session.refreshToken, session.expiresIn)
 
  const weather = await getWeather(65804, month - 1, year)
-
- const selectedMonth = dayjs()
-  .month(month - 1)
-  .format('MMMM')
- const today = dayjs().format('MMMM D, YYYY')
 
  return (
   <div className='w-full max-w-[1200px] mx-auto'>

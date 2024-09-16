@@ -10,7 +10,6 @@ function Location() {
  const [active, setActive] = useState(false)
  const [selected, setSelected] = useState<any>()
  const [suggestionsResult, setSuggestionsResult] = useState<any[]>([])
- const location = useNewEventStore((state) => state.location)
  const setLocation = useNewEventStore((state) => state.setLocation)
  const handleClick = async () => {
   setActive(!active)
@@ -122,7 +121,6 @@ function Location() {
        suggestionsResult?.length > 0 &&
        suggestionsResult.map((sugg: any, i: number) => {
         const pred = sugg.placePrediction
-        console.log(pred)
         return (
          <div
           onClick={() => handleSelect(pred)}

@@ -1,12 +1,10 @@
-import React, { useEffect, useState } from 'react'
-import type { Event as EventType } from '@/types/types'
-import type { Session } from 'next-auth'
+import React from 'react'
+import { insertEvent } from '@/app/lib/calendar'
 import { getUserSession } from '@/app/lib/googleAuth'
 import { useNewEventStore } from '@/app/lib/zustand/store'
 import { makeEventDates } from '@/app/lib/date-utils'
 
 function Submit() {
- const [session, setSession] = useState<Session | null>(null)
  const summary = useNewEventStore((state) => state.summary)
  const description = useNewEventStore((state) => state.description)
  const location = useNewEventStore((state) => state.location)
@@ -15,14 +13,6 @@ function Submit() {
  const startTime = useNewEventStore((state) => state.startTime)
  const endTime = useNewEventStore((state) => state.endTime)
  const allDay = useNewEventStore((state) => state.allDay)
-
- useEffect(() => {
-  getUserSession().then((session) => setSession(session))
- }, [])
-
- if (!session || !session.accessToken || !session.idToken || !session.refreshToken || !session.expiresIn) {
-  return <div>Sign in to create events</div>
- }
 
  const event = () => {
   const dates = makeEventDates(startDate.toString(), endDate.toString(), startTime.toString(), endTime.toString(), allDay)
@@ -36,7 +26,12 @@ function Submit() {
  }
 
  const handleSubmit = async () => {
-  console.log(event())
+  const newEvent = event()
+  const session = await getUserSession()
+  if (!session || !session.accessToken || !session.idToken || !session.refreshToken || !session.expiresIn) {
+   return <div>Sign in to create events</div>
+  }
+  await insertEvent(session.accessToken, session.idToken, session.refreshToken, session.expiresIn, newEvent)
  }
 
  return (
