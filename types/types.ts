@@ -130,3 +130,17 @@ export type Place = {
  text: string
  place_id: string
 }
+
+export type DateType = {
+ date: string
+ dateTime: Date
+ timeZone: string
+}
+
+export type Event = {
+ start: DateType
+ end: DateType
+ summary?: string
+ description?: string
+ location?: string
+}

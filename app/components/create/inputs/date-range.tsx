@@ -1,17 +1,13 @@
 import React from 'react'
 import DatePicker from 'react-datepicker'
+import { useNewEventStore } from '@/app/lib/zustand/store'
 
-function DateRange({
- startDate,
- endDate,
- setStartDate,
- setEndDate,
-}: {
- startDate: Date
- endDate: Date
- setStartDate: React.Dispatch<React.SetStateAction<Date>>
- setEndDate: React.Dispatch<React.SetStateAction<Date>>
-}) {
+function DateRange() {
+ const startDate = useNewEventStore((state) => state.startDate)
+ const endDate = useNewEventStore((state) => state.endDate)
+ const setStartDate = useNewEventStore((state) => state.setStartDate)
+ const setEndDate = useNewEventStore((state) => state.setEndDate)
+
  const onStartDateChange = (date: Date) => {
   setStartDate(date)
   if (date > endDate) {

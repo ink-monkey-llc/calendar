@@ -4,14 +4,15 @@ import { getLastMonthYear, getNextMonthYear } from '@/app/lib/utils'
 import { getGoogleCalendarEvents } from '@/app/lib/calendar'
 import type { CalendarEvent } from '@/types/types'
 import { auth } from '@/auth'
-import Day from './day'
 import dayjs from '@/app/lib/dayjs'
 import { getWeather } from '@/actions/weather'
 import MonthSelect from './month-select'
 import DayDetail from '../detail/day-detail'
-import Days from './days'
+import dynamic from 'next/dynamic'
+// import Days from './days'
 
 async function Calendar({ month, year }: { month: number; year: number }) {
+ const Days = dynamic(() => import('./days'), { ssr: false })
  const session = await auth()
  const weekdays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
 

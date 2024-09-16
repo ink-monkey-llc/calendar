@@ -76,6 +76,32 @@ export const days = (year: number, month: number, calSize: number) => {
  const nextMonthDays = makeNextMonthDays(year, month - 1, calSize)
  const prevMonthDays = makePrevMonthDays(year, month - 1)
 
- //  return [...prevMonthDays, ...currMonthDays, ...nextMonthDays]
  return [...currMonthDays, ...nextMonthDays]
+}
+
+export const makeEventDates = (startDate: string, endDate: string, startTime: string, endTime: string, allDay: boolean) => {
+ const formattedStartDate = dayjs(startDate).format('YYYY-MM-DD')
+ const formattedEndDate = dayjs(endDate).format('YYYY-MM-DD')
+ const addTime = (date: string, time: string) => {
+  return dayjs(`${date}T${time}`).format()
+ }
+ let startObj = {}
+ let endObj = {}
+ if (allDay) {
+  startObj = {
+   date: formattedStartDate,
+  }
+  endObj = {
+   date: formattedEndDate,
+  }
+ }
+ if (!allDay) {
+  startObj = {
+   dateTime: addTime(formattedStartDate, startTime),
+  }
+  endObj = {
+   dateTime: addTime(formattedEndDate, endTime),
+  }
+ }
+ return { start: startObj, end: endObj }
 }

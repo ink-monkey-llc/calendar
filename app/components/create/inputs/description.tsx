@@ -1,7 +1,16 @@
 import React, { useState } from 'react'
+import { useNewEventStore } from '@/app/lib/zustand/store'
 
-function Description({ description, setDescription }: { description: string; setDescription: React.Dispatch<React.SetStateAction<string>> }) {
+function Description() {
  const [active, setActive] = useState(false)
+ const description = useNewEventStore((state) => state.description)
+ const setDescription = useNewEventStore((state) => state.setDescription)
+
+ const handleCancel = () => {
+  setActive(false)
+  setDescription('')
+ }
+
  return (
   <div className='mt-2'>
    {!active ? (
@@ -19,7 +28,7 @@ function Description({ description, setDescription }: { description: string; set
        Description
       </label>
       <div
-       onClick={() => setActive(false)}
+       onClick={handleCancel}
        className='text-xs cursor-pointer rounded-lg px-2 hover:bg-white/20'>
        Cancel
       </div>
@@ -29,7 +38,7 @@ function Description({ description, setDescription }: { description: string; set
       name='description'
       value={description}
       onChange={(e) => setDescription(e.target.value)}
-      className='rounded-lg w-full text-sm bg-transparent border border-white/20 focus-within:border-white/80'
+      className='rounded-lg w-full text-sm bg-transparent border border-white/20 focus-within:border-white/80 px-1'
      />
     </>
    )}

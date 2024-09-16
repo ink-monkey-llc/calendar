@@ -48,7 +48,7 @@ function Day({ day, index, events, todayWeather }: Props) {
    <div className={cn('relative day-bg opacity-40', isThisMonth && 'opacity-100')}>
     <div className='absolute bg-black rounded-xl top-[9px] right-[9px] left-[4px] bottom-[4px] z-0'></div>
     <div className='aspect-square relative rounded-lg z-10 flex justify-between flex-col'>
-     <li
+     <div
       className='text-end p-2 pl-[7px]'
       key={index}>
       <div className=' flex justify-between pr-[6px] pt-[6px]'>
@@ -81,7 +81,7 @@ function Day({ day, index, events, todayWeather }: Props) {
          </div>
         </div>
        ))}
-     </li>
+     </div>
      <div
       style={{ backgroundColor: currentColor.value, color: currentColor.text }}
       className='flex justify-between font-semibold text-xs absolute bottom-[5px] right-[9px] left-[3px] pl-[6px] rounded-b-xl'>

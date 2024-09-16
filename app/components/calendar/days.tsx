@@ -20,7 +20,7 @@ function Days({ year, month, events, weather }: { year: number; month: number; e
  }
  const daysArray = days(year, month, calSize(width))
  return (
-  <ul className='grid grid-cols-4 tablet:grid-cols-7 desktop:grid-cols-11 h-full  border-t-black w-full mt-2 tablet:mt-0'>
+  <div className='grid grid-cols-4 tablet:grid-cols-7 desktop:grid-cols-11 h-full  border-t-black w-full mt-2 tablet:mt-0'>
    {daysArray.map((day, index) => {
     const todayWeather = weather.filter((weather) => weather.date === day.date)
     return (
@@ -45,7 +45,7 @@ function Days({ year, month, events, weather }: { year: number; month: number; e
      </div>
     )
    })}
-  </ul>
+  </div>
  )
 }
 

@@ -1,19 +1,18 @@
 import React from 'react'
 import { CheckIcon } from '../../icons/check'
 import { cn } from '@/app/lib/utils'
+import { useNewEventStore } from '@/app/lib/zustand/store'
 
-function AllDay({
- allDay,
- setAllDay,
- setTimes,
-}: {
- allDay: boolean
- setAllDay: React.Dispatch<React.SetStateAction<boolean>>
- setTimes: React.Dispatch<React.SetStateAction<{ startTime: string; endTime: string }>>
-}) {
+function AllDay() {
+ const allDay = useNewEventStore((state) => state.allDay)
+ const setAllDay = useNewEventStore((state) => state.setAllDay)
+ const setStartTime = useNewEventStore((state) => state.setStartTime)
+ const setEndTime = useNewEventStore((state) => state.setEndTime)
+
  const handleClick = () => {
   if (!allDay) {
-   setTimes({ startTime: '', endTime: '' })
+   setStartTime('')
+   setEndTime('')
   }
   setAllDay(!allDay)
  }
