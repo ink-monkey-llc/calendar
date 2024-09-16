@@ -12,6 +12,7 @@
  "dependencies": {
   "@floating-ui/react": "^0.26.23",
   "@googlemaps/js-api-loader": "^1.16.8",
+  "@tanstack/react-query": "^5.56.2",
   "clsx": "^2.1.1",
   "date-fns": "^4.0.0",
   "dayjs": "^1.11.13",
@@ -28,6 +29,7 @@
   "zustand": "^5.0.0-rc.2"
  },
  "devDependencies": {
+  "@tanstack/eslint-plugin-query": "^5.56.1",
   "@types/node": "^20",
   "@types/react": "^18",
   "@types/react-dom": "^18",
