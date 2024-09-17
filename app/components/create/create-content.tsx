@@ -9,7 +9,6 @@ import Summary from './inputs/summary'
 import Description from './inputs/description'
 import Location from './inputs/location/location'
 import Submit from './inputs/submit'
-import SubmitError from './inputs/submit-error'
 
 function CreateContent({ color }: { color: ColorOption }) {
  return (
