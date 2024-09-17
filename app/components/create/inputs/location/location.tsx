@@ -51,7 +51,7 @@ function Location() {
   })
   setLocation(placeInfo.place.formattedAddress)
   setSelected(placeInfo)
-  console.log(placeInfo)
+  // console.log(placeInfo)
   setSuggestionsResult([])
  }
 

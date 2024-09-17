@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Suspense } from 'react'
 import Calendar from '../components/calendar/calendar'
 import { redirect } from 'next/navigation'
 import { splitDateString } from '@/app/lib/utils'

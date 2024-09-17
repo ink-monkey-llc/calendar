@@ -13,7 +13,7 @@ type Props = {
  day: DayType
  index: number
  events: CalendarEvent[]
- todayWeather?: FormattedWeather
+ todayWeather?: FormattedWeather | null
 }
 
 function DayMobile({ day, index, events, todayWeather }: Props) {
@@ -43,7 +43,7 @@ function DayMobile({ day, index, events, todayWeather }: Props) {
    events={eventsForDay}
    currentColor={currentColor}
    day={day}>
-   <div className={cn('relative day-bg opacity-40 max-w-[87px]', isThisMonth && 'opacity-100', width > 420 && 'mb-2')}>
+   <div className={cn('relative day-bg opacity-40 w-full max-w-[87px]', isThisMonth && 'opacity-100', width > 420 && 'mb-2')}>
     <div className='absolute bg-black rounded-xl top-[9px] right-[9px] left-[4px] bottom-[4px] z-0'></div>
     <div className='aspect-square relative rounded-lg z-10 flex justify-between flex-col'>
      <li

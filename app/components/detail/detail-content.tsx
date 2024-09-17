@@ -8,7 +8,7 @@ import dayjs from '@/app/lib/dayjs'
 import DayEvent from './day-event'
 import { Raindrop } from '../icons/raindrop'
 
-function DetailContent({ day, events, todayWeather }: { day: Day; events: CalendarEvent[]; todayWeather?: FormattedWeather }) {
+function DetailContent({ day, events, todayWeather }: { day: Day; events: CalendarEvent[]; todayWeather?: FormattedWeather | null }) {
  const [color, setColor] = useLocalStorage<ColorOption>('color', colorDefault)
  const [currentColor, setCurrentColor] = useState<ColorOption>(color)
 

@@ -13,7 +13,7 @@ function DayDetail({
  day: Day
  events: CalendarEvent[]
  currentColor: ColorOption
- todayWeather?: FormattedWeather
+ todayWeather?: FormattedWeather | null
 }) {
  return (
   <Dialog
@@ -22,14 +22,7 @@ function DayDetail({
     bounce: 0.1,
     duration: 0.3,
    }}>
-   <DialogTrigger
-    style={{
-     borderRadius: '12px',
-     width: 'max-content',
-     marginInline: 'auto',
-    }}>
-    {children}
-   </DialogTrigger>
+   <DialogTrigger>{children}</DialogTrigger>
    <DialogContainer>
     <DialogContent
      style={{
