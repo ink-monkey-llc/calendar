@@ -6,13 +6,13 @@ import { signOut, signIn, auth } from '@/auth'
 import dayjs from '../lib/dayjs'
 import Colors from '../components/settings/colors'
 import { Logout } from '../components/icons/logout'
-import CreateContent from '../components/create/create-content'
 import CreateDialog from '../components/create/create-dialog'
 
 async function Cal({ searchParams }: { searchParams: { [key: string]: string | string[] | undefined } }) {
  const initYear = Number(dayjs().format('YYYY'))
  const initMonth = Number(dayjs().format('M'))
  const { month, year } = searchParams.m ? splitDateString(searchParams.m as string) : { month: initMonth, year: initYear }
+
  const session = await auth()
 
  if (!session) {

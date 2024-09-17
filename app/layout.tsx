@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
-import { Query, QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { cn } from './lib/utils'
+import { Providers } from './lib/rq/providers'
 import './globals.css'
 
 const inter = Inter({ subsets: ['latin'] })
@@ -16,16 +16,13 @@ export default function RootLayout({
 }: Readonly<{
  children: React.ReactNode
 }>) {
- const queryClient = new QueryClient()
  return (
   <html lang='en'>
-   <QueryClientProvider client={queryClient}>
-    <body
-     style={{ '--accent-hsl': 'var(--blue-hsl)' }}
-     className={cn(inter.className, 'relative')}>
-     {children}
-    </body>
-   </QueryClientProvider>
+   <body
+    style={{ '--accent-hsl': 'var(--blue-hsl)' }}
+    className={cn(inter.className, 'relative')}>
+    <Providers>{children}</Providers>
+   </body>
   </html>
  )
 }

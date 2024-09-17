@@ -2,11 +2,14 @@
 import { CalendarEvent, FormattedWeather } from '@/types/types'
 import { useWindowSize } from 'usehooks-ts'
 import React from 'react'
+import { useQuery } from '@tanstack/react-query'
 import Day from './day'
 import DayMobile from './day-mobile'
 import { days } from '@/app/lib/date-utils'
+import { getEvents } from '@/app/resource/events'
 
-function Days({ year, month, events, weather }: { year: number; month: number; events: CalendarEvent[]; weather: FormattedWeather[] }) {
+function Days({ year, month, weather }: { year: number; month: number; weather: FormattedWeather[] }) {
+ const { data, isPending, isError } = useQuery({ queryKey: ['events'], queryFn: getEvents })
  const { width } = useWindowSize()
  const isMobile = width < 465
  const calSize = (width: number) => {
@@ -28,7 +31,7 @@ function Days({ year, month, events, weather }: { year: number; month: number; e
       {isMobile ? (
        <DayMobile
         todayWeather={todayWeather[0]}
-        events={events as CalendarEvent[]}
+        events={isPending ? [] : (data as CalendarEvent[])}
         key={index}
         day={day}
         index={index}
@@ -36,7 +39,7 @@ function Days({ year, month, events, weather }: { year: number; month: number; e
       ) : (
        <Day
         todayWeather={todayWeather[0]}
-        events={events as CalendarEvent[]}
+        events={isPending ? [] : (data as CalendarEvent[])}
         key={index}
         day={day}
         index={index}
