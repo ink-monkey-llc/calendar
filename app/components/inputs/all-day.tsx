@@ -1,5 +1,5 @@
 import React from 'react'
-import { CheckIcon } from '../../icons/check'
+import { CheckIcon } from '../icons/check'
 import { cn } from '@/app/lib/utils'
 import { useNewEventStore } from '@/app/lib/zustand/store'
 

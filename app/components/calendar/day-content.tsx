@@ -52,16 +52,16 @@ function DayContent({
      eventsForDay.map((event) => (
       <div
        style={{ borderColor: currentColor.ul }}
-       className='flex justify-between border-b mr-1 text-[.5rem] text-white'
+       className='flex  border-b mr-1 text-[.5rem] text-white'
        key={event.id}>
        <div
         style={{ color: eventColor }}
         className=''>
-        {time(event.start.dateTime)} -{' '}
+        {time(event.start.dateTime)} -
        </div>
        <div
         style={{ color: eventColor }}
-        className=' truncate '>
+        className=' truncate ml-1'>
         {trunc(event.summary, 13, true)}
        </div>
       </div>

@@ -99,12 +99,12 @@ export type FormattedWeather = {
 }
 
 export const colorDefault: ColorOption = {
- id: '',
- name: '',
- variable: '',
- value: '',
- text: '',
- ul: '',
+ id: '#3e4e63',
+ name: '#3e4e63',
+ variable: '#3e4e63',
+ value: '#3e4e63',
+ text: '#3e4e63',
+ ul: '#3e4e63',
 }
 
 export type ColorOption = {

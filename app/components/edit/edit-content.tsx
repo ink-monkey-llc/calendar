@@ -9,7 +9,7 @@ import Description from '../inputs/description'
 import Location from '../inputs/location/location'
 import Submit from '../inputs/submit'
 
-function CreateContent({ color }: { color: ColorOption }) {
+function EditContent({ color }: { color: ColorOption }) {
  return (
   <div className='z-50 relative pl-2 pr-4 pt-2 '>
    <form
@@ -33,4 +33,4 @@ function CreateContent({ color }: { color: ColorOption }) {
  )
 }
 
-export default CreateContent
+export default EditContent

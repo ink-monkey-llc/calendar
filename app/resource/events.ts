@@ -34,3 +34,25 @@ export async function createEvent(event: any) {
   throw new Error('Error creating event')
  }
 }
+
+export async function callDeleteEvent(eventId: string) {
+ const session = await getUserSession()
+ if (!session || !session.accessToken || !session.idToken || !session.refreshToken || !session.expiresIn) {
+  throw new Error('No session found')
+ }
+ const response = await fetch('/api/event', {
+  method: 'DELETE',
+  headers: {
+   'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({
+   eventId,
+   session,
+  }),
+ })
+ if (response.status === 200) {
+  return response.json()
+ } else {
+  throw new Error('Error deleting event')
+ }
+}

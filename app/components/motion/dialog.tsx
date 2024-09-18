@@ -16,7 +16,7 @@ interface DialogContextType {
 
 const DialogContext = React.createContext<DialogContextType | null>(null)
 
-function useDialog() {
+export function useDialog() {
  const context = useContext(DialogContext)
  if (!context) {
   throw new Error('useDialog must be used within a DialogProvider')
@@ -66,9 +66,13 @@ type DialogTriggerProps = {
 function DialogTrigger({ children, className, style, triggerRef }: DialogTriggerProps) {
  const { setIsOpen, isOpen, uniqueId } = useDialog()
 
- const handleClick = useCallback(() => {
-  setIsOpen(!isOpen)
- }, [isOpen, setIsOpen])
+ const handleClick = useCallback(
+  (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+   e.stopPropagation()
+   setIsOpen(!isOpen)
+  },
+  [isOpen, setIsOpen]
+ )
 
  const handleKeyDown = useCallback(
   (event: React.KeyboardEvent) => {
@@ -85,7 +89,7 @@ function DialogTrigger({ children, className, style, triggerRef }: DialogTrigger
    ref={triggerRef}
    layoutId={`dialog-${uniqueId}`}
    className={cn('relative cursor-pointer', className)}
-   onClick={handleClick}
+   onClick={(e) => handleClick(e)}
    onKeyDown={handleKeyDown}
    style={style}
    role='button'

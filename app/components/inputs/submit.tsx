@@ -1,8 +1,10 @@
 import React from 'react'
-import { useMutation } from '@tanstack/react-query'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useNewEventStore } from '@/app/lib/zustand/store'
+import { useDialog } from '../motion/dialog'
 import { makeEventDates } from '@/app/lib/date-utils'
 import { createEvent } from '@/app/resource/events'
+import { set } from 'date-fns'
 
 function Submit() {
  const summary = useNewEventStore((state) => state.summary)
@@ -13,6 +15,11 @@ function Submit() {
  const startTime = useNewEventStore((state) => state.startTime)
  const endTime = useNewEventStore((state) => state.endTime)
  const allDay = useNewEventStore((state) => state.allDay)
+ const reset = useNewEventStore((state) => state.reset)
+
+ const { setIsOpen } = useDialog()
+
+ const queryClient = useQueryClient()
 
  const event = () => {
   const dates = makeEventDates(startDate.toString(), endDate.toString(), startTime.toString(), endTime.toString(), allDay)
@@ -28,6 +35,11 @@ function Submit() {
  const mutation = useMutation({
   mutationFn: (event: any) => {
    return createEvent(event)
+  },
+  onSuccess: () => {
+   queryClient.invalidateQueries({ queryKey: ['events'] })
+   reset()
+   setIsOpen(false)
   },
  })
 

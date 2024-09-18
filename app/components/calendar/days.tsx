@@ -4,6 +4,7 @@ import { CalendarEvent, FormattedWeather } from '@/types/types'
 import { useWindowSize } from 'usehooks-ts'
 import { useQuery } from '@tanstack/react-query'
 import Day from './day'
+import dynamic from 'next/dynamic'
 import { getWeather } from '@/app/resource/weather'
 import DayMobile from './day-mobile'
 import { days } from '@/app/lib/date-utils'
@@ -22,7 +23,7 @@ function Days({ year, month }: { year: number; month: number }) {
   refetchOnWindowFocus: false,
  })
 
- //  const Day = dynamic(() => import('./day'), { ssr: false })
+ //  const Day = dynamic(() => import('./day'))
 
  const { width } = useWindowSize()
  const isMobile = width < 465

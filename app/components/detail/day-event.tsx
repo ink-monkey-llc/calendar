@@ -5,6 +5,9 @@ import { More } from '../icons/more'
 import dayjs from '@/app/lib/dayjs'
 import { Pin } from '../icons/pin'
 import { Less } from '../icons/less'
+import DeleteEvent from './delete-event'
+import EditEvent from './edit-event'
+import EditDialog from '../edit/edit-dialog'
 
 function DayEvent({ event, color }: { event: CalendarEvent; color: ColorOption }) {
  const [open, setOpen] = useState(false)
@@ -17,7 +20,7 @@ function DayEvent({ event, color }: { event: CalendarEvent; color: ColorOption }
  return (
   <div
    onClick={() => setOpen(!open)}
-   className=' font-semibold p-1 grid grid-cols-4 items-center hover-bg cursor-pointer'
+   className='relative font-semibold p-1 grid grid-cols-4 items-center hover-bg cursor-pointer'
    style={{ color: color.value, '--current': color.ul, borderBottomWidth: '1px', borderBottomColor: color.ul }}>
    <div className='col-span-1 w-max m-auto'>
     {isAllDay && <span className='text-sm'>All day</span>}
@@ -31,7 +34,13 @@ function DayEvent({ event, color }: { event: CalendarEvent; color: ColorOption }
    <div
     style={{ borderInlineWidth: '1px', borderInlineColor: color.value }}
     className={cn('col-span-3 px-2 m-1 flex flex-col gap-1', open ? 'text-wrap' : 'truncate')}>
-    <div className='text-sm font-bold'>{event.summary}</div>
+    {open && (
+     <div className='w-full flex justify-end text-sm '>
+      <EditDialog />
+      <DeleteEvent eventId={event.id} />
+     </div>
+    )}
+    <div className={cn('text-sm font-bold w-full overflow-hidden truncate', open && 'text-wrap')}>{event.summary}</div>
     {open && (
      <div>
       <div
