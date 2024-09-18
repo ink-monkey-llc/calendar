@@ -1,10 +1,16 @@
 import React from 'react'
 import { EditIcon } from '../icons/edit'
+import { useNewEventStore } from '@/app/lib/zustand/store'
 
-function EditEvent() {
+function EditEvent({ eventId }: { eventId: string }) {
+ const setIsEdit = useNewEventStore((state) => state.setIsEdit)
+ const setEventId = useNewEventStore((state) => state.setEventId)
  const handleEdit = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
   e.stopPropagation()
+  setEventId(eventId)
+  setIsEdit(true)
  }
+
  return (
   <div
    onClick={(e) => handleEdit(e)}

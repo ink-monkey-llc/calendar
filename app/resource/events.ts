@@ -1,5 +1,5 @@
 import { getUserSession } from '@/app/lib/googleAuth'
-import { getGoogleCalendarEvents } from '../lib/calendar'
+import { getEvent, getGoogleCalendarEvents } from '../lib/calendar'
 
 export async function getEvents() {
  const session = await getUserSession()
@@ -11,6 +11,18 @@ export async function getEvents() {
   throw new Error('No events found')
  }
  return events
+}
+
+export async function fetchEvent(eventId: string) {
+ const session = await getUserSession()
+ if (!session || !session.accessToken || !session.idToken || !session.refreshToken || !session.expiresIn) {
+  throw new Error('No session found')
+ }
+ const event = await getEvent(session.accessToken, session.idToken, session.refreshToken, session.expiresIn, eventId)
+ if (!event) {
+  throw new Error('No event found')
+ }
+ return event
 }
 
 export async function createEvent(event: any) {

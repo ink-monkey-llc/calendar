@@ -28,6 +28,21 @@ export async function getGoogleCalendarEvents(accessToken: string, idToken: stri
  }
 }
 
+export async function getEvent(accessToken: string, idToken: string, refreshToken: string, expiresIn: number, eventId: string) {
+ const auth = await googleAuth(accessToken, idToken, refreshToken, expiresIn)
+ const calendar = google.calendar({ version: 'v3', auth, errorRedactor: false })
+ try {
+  const response = await calendar.events.get({
+   calendarId: 'primary',
+   eventId: eventId,
+  })
+  //   console.log(response)
+  return response.data
+ } catch (e) {
+  console.log(e)
+ }
+}
+
 export async function insertEvent(accessToken: string, idToken: string, refreshToken: string, expiresIn: number, event: any) {
  const auth = await googleAuth(accessToken, idToken, refreshToken, expiresIn)
  const calendar = google.calendar({ version: 'v3', auth, errorRedactor: false })

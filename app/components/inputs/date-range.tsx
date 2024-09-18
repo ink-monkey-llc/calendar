@@ -15,6 +15,8 @@ function DateRange() {
   }
  }
 
+ console.log('daterange', startDate, endDate)
+
  return (
   <div className='border flex gap-2 items-center justify-between w-max border-white/20  rounded-lg pl-2 mt-2'>
    <DatePicker

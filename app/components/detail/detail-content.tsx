@@ -29,7 +29,7 @@ function DetailContent({ day, events, todayWeather }: { day: Day; events: Calend
      scrollbarWidth: 'thin',
      scrollbarColor: `${currentColor.value} transparent`,
     }}
-    className='bg-black mr-[14px] h-56 overflow-y-scroll'>
+    className='bg-black mr-[14px] h-[260px] overflow-y-scroll'>
     {events.map((event, index) => (
      <DayEvent
       key={event.id}

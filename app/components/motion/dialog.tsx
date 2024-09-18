@@ -5,6 +5,7 @@ import { motion, AnimatePresence, MotionConfig, Transition, Variant } from 'fram
 import { createPortal } from 'react-dom'
 import { cn } from '@/app/lib/utils'
 import { useOnClickOutside } from 'usehooks-ts'
+import { useNewEventStore } from '@/app/lib/zustand/store'
 import { XIcon } from 'lucide-react'
 
 interface DialogContextType {
@@ -157,9 +158,12 @@ function DialogContent({ children, className, style }: DialogContent) {
   }
  }, [isOpen, triggerRef])
 
+ const setIsEdit = useNewEventStore((state) => state.setIsEdit)
+
  useOnClickOutside(containerRef, () => {
   if (isOpen) {
    setIsOpen(false)
+   setIsEdit(false)
   }
  })
 

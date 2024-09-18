@@ -1,4 +1,3 @@
-import { init } from 'next/dist/compiled/webpack/webpack'
 import { create } from 'zustand'
 
 export type State = {
@@ -10,6 +9,8 @@ export type State = {
  startTime: string
  endTime: string
  allDay: boolean
+ eventId: string
+ isEdit: boolean
 }
 
 export type Action = {
@@ -21,6 +22,8 @@ export type Action = {
  setStartTime: (startTime: string) => void
  setEndTime: (endTime: string) => void
  setAllDay: (allDay: boolean) => void
+ setIsEdit: (isEdit: boolean) => void
+ setEventId: (eventId: string) => void
  reset: () => void
 }
 
@@ -33,6 +36,8 @@ const initialState: State = {
  startTime: new Date().toString(),
  endTime: new Date().toString(),
  allDay: true,
+ eventId: '',
+ isEdit: false,
 }
 
 export const useNewEventStore = create<Action & State>()((set) => ({
@@ -45,5 +50,7 @@ export const useNewEventStore = create<Action & State>()((set) => ({
  setStartTime: (startTime: string) => set({ startTime }),
  setEndTime: (endTime: string) => set({ endTime }),
  setAllDay: (allDay: boolean) => set({ allDay }),
+ setIsEdit: (isEdit: boolean) => set({ isEdit }),
+ setEventId: (eventId: string) => set({ eventId }),
  reset: () => set(initialState),
 }))

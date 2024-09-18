@@ -7,7 +7,6 @@ import { Pin } from '../icons/pin'
 import { Less } from '../icons/less'
 import DeleteEvent from './delete-event'
 import EditEvent from './edit-event'
-import EditDialog from '../edit/edit-dialog'
 
 function DayEvent({ event, color }: { event: CalendarEvent; color: ColorOption }) {
  const [open, setOpen] = useState(false)
@@ -36,7 +35,7 @@ function DayEvent({ event, color }: { event: CalendarEvent; color: ColorOption }
     className={cn('col-span-3 px-2 m-1 flex flex-col gap-1', open ? 'text-wrap' : 'truncate')}>
     {open && (
      <div className='w-full flex justify-end text-sm '>
-      <EditDialog />
+      <EditEvent eventId={event.id} />
       <DeleteEvent eventId={event.id} />
      </div>
     )}
