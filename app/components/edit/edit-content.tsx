@@ -12,6 +12,7 @@ import Location from '../inputs/location/location'
 import Submit from '../inputs/submit'
 import dayjs from '@/app/lib/dayjs'
 import { useNewEventStore } from '@/app/lib/zustand/store'
+import { processDateTime } from '@/app/lib/date-utils'
 
 function EditContent({ color }: { color: ColorOption }) {
  const eventId = useNewEventStore((state) => state.eventId)
@@ -30,20 +31,21 @@ function EditContent({ color }: { color: ColorOption }) {
   refetchOnWindowFocus: false,
  })
 
+ //  console.log(eventQuery.data)
+
  useEffect(() => {
   const { data, isSuccess } = eventQuery
-  console.log(data?.start?.date)
   if (isSuccess) {
-   const startDate = data?.start?.date ? new Date(data.start.date) : new Date()
-   const endDate = data?.end?.date ? new Date(data.end.date) : new Date()
-   console.log('useeffect', startDate, endDate)
+   const startDate = processDateTime(data?.start?.date, data?.start?.dateTime)
+   const endDate = processDateTime(data?.end?.date, data?.end?.dateTime)
    setSummary(data.summary ?? '')
    setDescription(data.description ?? '')
    setLocation(data.location ?? '')
-   setStartDate(startDate)
-   setEndDate(endDate)
-   setStartTime(data?.start?.dateTime ?? '')
-   setEndTime(data?.end?.dateTime ?? '')
+   setStartDate(startDate.date)
+   setEndDate(endDate.date)
+   setStartTime(processDateTime(data?.start?.date, data?.start?.dateTime).time)
+   setEndTime(processDateTime(data?.end?.date, data?.end?.dateTime).time)
+   //    console.log(data?.start?.dateTime)
    setAllDay(data?.start?.dateTime ? false : true)
   }
  }, [eventQuery])

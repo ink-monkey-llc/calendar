@@ -1,5 +1,6 @@
 import { getUserSession } from '@/app/lib/googleAuth'
 import { getEvent, getGoogleCalendarEvents } from '../lib/calendar'
+import type { EventType } from '../components/inputs/submit'
 
 export async function getEvents() {
  const session = await getUserSession()
@@ -66,5 +67,28 @@ export async function callDeleteEvent(eventId: string) {
   return response.json()
  } else {
   throw new Error('Error deleting event')
+ }
+}
+
+export async function callUpdateEvent(eventId: string, event: EventType) {
+ const session = await getUserSession()
+ if (!session || !session.accessToken || !session.idToken || !session.refreshToken || !session.expiresIn) {
+  throw new Error('No session found')
+ }
+ const response = await fetch('/api/event', {
+  method: 'PUT',
+  headers: {
+   'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({
+   event,
+   session,
+   eventId,
+  }),
+ })
+ if (response.status === 200) {
+  return response.json()
+ } else {
+  throw new Error('Error updating event')
  }
 }

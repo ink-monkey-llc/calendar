@@ -105,3 +105,15 @@ export const makeEventDates = (startDate: string, endDate: string, startTime: st
  }
  return { start: startObj, end: endObj }
 }
+
+export const processDateTime = (date?: string | null, dateTime?: string | null) => {
+ let processedDate: Date = dayjs().toDate()
+ let processedTime: string = ''
+ if (date) {
+  processedDate = dayjs(date).toDate()
+ } else {
+  processedDate = dayjs(dateTime).toDate()
+  processedTime = dayjs(dateTime).format('hh:mm')
+ }
+ return { date: processedDate, time: processedTime }
+}

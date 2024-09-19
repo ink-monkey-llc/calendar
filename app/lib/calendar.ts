@@ -1,4 +1,5 @@
 'use server'
+import { EventType } from '../components/inputs/submit'
 import { getUserSession } from './googleAuth'
 import { google } from 'googleapis'
 
@@ -65,6 +66,22 @@ export async function deleteEvent(accessToken: string, idToken: string, refreshT
   const response = await calendar.events.delete({
    calendarId: 'primary',
    eventId: eventId,
+  })
+  //   console.log(response)
+  return response
+ } catch (e) {
+  console.log(e)
+ }
+}
+
+export async function updateEvent(accessToken: string, idToken: string, refreshToken: string, expiresIn: number, event: EventType, eventId: string) {
+ const auth = await googleAuth(accessToken, idToken, refreshToken, expiresIn)
+ const calendar = google.calendar({ version: 'v3', auth, errorRedactor: false })
+ try {
+  const response = await calendar.events.update({
+   calendarId: 'primary',
+   eventId: eventId,
+   requestBody: event,
   })
   //   console.log(response)
   return response

@@ -159,11 +159,13 @@ function DialogContent({ children, className, style }: DialogContent) {
  }, [isOpen, triggerRef])
 
  const setIsEdit = useNewEventStore((state) => state.setIsEdit)
+ const reset = useNewEventStore((state) => state.reset)
 
  useOnClickOutside(containerRef, () => {
   if (isOpen) {
    setIsOpen(false)
    setIsEdit(false)
+   reset()
   }
  })
 

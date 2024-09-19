@@ -3,8 +3,8 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useNewEventStore } from '@/app/lib/zustand/store'
 import { useDialog } from '../motion/dialog'
 import { makeEventDates } from '@/app/lib/date-utils'
-import { createEvent } from '@/app/resource/events'
-import { set } from 'date-fns'
+import { createEvent, callUpdateEvent } from '@/app/resource/events'
+export type EventType = { start: {}; end: {}; summary: string; description: string; location: string }
 
 function Submit() {
  const summary = useNewEventStore((state) => state.summary)
@@ -15,6 +15,8 @@ function Submit() {
  const startTime = useNewEventStore((state) => state.startTime)
  const endTime = useNewEventStore((state) => state.endTime)
  const allDay = useNewEventStore((state) => state.allDay)
+ const isEdit = useNewEventStore((state) => state.isEdit)
+ const eventId = useNewEventStore((state) => state.eventId)
  const reset = useNewEventStore((state) => state.reset)
 
  const { setIsOpen } = useDialog()
@@ -32,9 +34,17 @@ function Submit() {
   }
  }
 
+ const mutFn = (event: EventType) => {
+  if (isEdit) {
+   console.log(event)
+   return callUpdateEvent(eventId, event)
+  }
+  return createEvent(event)
+ }
+
  const mutation = useMutation({
   mutationFn: (event: any) => {
-   return createEvent(event)
+   return mutFn(event)
   },
   onSuccess: () => {
    queryClient.invalidateQueries({ queryKey: ['events'] })
@@ -51,7 +61,8 @@ function Submit() {
   <div
    onClick={handleSubmit}
    className='cursor-pointer m-auto px-4 py-0.5 rounded-lg bg-black border-2 border-white text-white font-semibold hover:bg-white hover:text-black'>
-   {mutation.isPending ? 'Creating event...' : mutation.isError ? 'Error creating event' : 'Create'}
+   {!isEdit && (mutation.isPending ? 'Creating event...' : mutation.isError ? 'Error creating event' : 'Create')}
+   {isEdit && (mutation.isPending ? 'Updating event...' : mutation.isError ? 'Error updating event' : 'Update')}
   </div>
  )
 }
