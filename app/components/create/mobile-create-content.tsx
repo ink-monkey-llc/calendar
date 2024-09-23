@@ -9,15 +9,15 @@ import Description from '../inputs/description'
 import Location from '../inputs/location/location'
 import Submit from '../inputs/submit'
 
-function CreateContent({ color }: { color: ColorOption }) {
+function MobileCreateContent({ color }: { color: ColorOption }) {
  return (
-  <div className='z-50 relative pl-2 pr-4 pt-2 '>
+  <div className='z-50 relative pt-2 '>
    <form
     style={{
      scrollbarWidth: 'thin',
      scrollbarColor: `${color.value} transparent`,
     }}
-    className='bg-black h-[300px] mr-[14px] px-2 overflow-y-scroll flex flex-col'>
+    className='bg-black h-[320px]  px-2 overflow-y-scroll flex flex-col'>
     <Summary />
     <DateRange />
     <div className='flex gap-2 items-center mt-2'>
@@ -33,4 +33,4 @@ function CreateContent({ color }: { color: ColorOption }) {
  )
 }
 
-export default CreateContent
+export default MobileCreateContent

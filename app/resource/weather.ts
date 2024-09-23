@@ -1,4 +1,3 @@
-'use server'
 import { firstDayOfMonth } from '@/app/lib/date-utils'
 import dayjs from '@/app/lib/dayjs'
 import { Coords, Weather, FormattedWeather, HistWeatherData } from '@/types/types'
@@ -10,7 +9,7 @@ type CoordData = {
 }
 
 const getCoords = async (zip: number): Promise<CoordData> => {
- const res = await fetch(`https://geocode.maps.co/search?q=${zip}&api_key=${process.env.GEOCODE_API_KEY}`)
+ const res = await fetch(`https://geocode.maps.co/search?q=${zip}&api_key=${process.env.NEXT_PUBLIC_GEOCODE_API_KEY}`)
  const data: Coords[] = await res.json()
  const coords = { lat: data[0].lat, lon: data[0].lon, address: data[0].display_name }
  return coords
@@ -52,6 +51,7 @@ const formatHistWeather = (data: HistWeatherData) => {
 }
 
 export const getWeather = async (zip: number, month: number, year: number): Promise<FormattedWeather[]> => {
+ console.log(zip, month, year)
  const isThisMonth = dayjs().month() == month && dayjs().year() == year
  const weatherRes = await fetch(WEATHER_URL(await getCoords(zip)))
  const weatherData = await weatherRes.json()

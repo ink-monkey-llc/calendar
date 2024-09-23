@@ -4,15 +4,13 @@ import { redirect } from 'next/navigation'
 import { splitDateString } from '@/app/lib/utils'
 import { signOut, signIn, auth } from '@/auth'
 import dayjs from '../lib/dayjs'
-import Colors from '../components/settings/colors'
-import { Logout } from '../components/icons/logout'
-import CreateContent from '../components/create/create-content'
-import CreateDialog from '../components/create/create-dialog'
+import Menu from '../components/menu/menu'
 
 async function Cal({ searchParams }: { searchParams: { [key: string]: string | string[] | undefined } }) {
  const initYear = Number(dayjs().format('YYYY'))
  const initMonth = Number(dayjs().format('M'))
  const { month, year } = searchParams.m ? splitDateString(searchParams.m as string) : { month: initMonth, year: initYear }
+
  const session = await auth()
 
  if (!session) {
@@ -29,20 +27,12 @@ async function Cal({ searchParams }: { searchParams: { [key: string]: string | s
  }
 
  return (
-  <div className='relative calendar-wrapper lg-mb:w-max m-auto p-4 pt-2 flex items-start justify-center h-[100vh] lg-mb:h-full'>
+  <div className='relative calendar-wrapper lg-mb:w-max m-auto p-4 pt-2 flex items-start justify-center h-full tablet:max-w-[900px] tablet:w-full desktop:max-w-[1200px] desktop:w-full lg-mb:h-full tablet:h-[650px] desktop:h-full'>
    <Calendar
     month={month}
     year={year}
    />
-   <div className='absolute flex gap-2 right-4 tablet:right-8 top-2'>
-    <CreateDialog />
-    <Colors />
-    <form action={handleAction}>
-     <button>
-      <Logout className='w-8 h-8 opacity-40 hover:opacity-100 transition-all' />
-     </button>
-    </form>
-   </div>
+   <Menu action={handleAction} />
   </div>
  )
 }

@@ -1,4 +1,6 @@
 'use server'
+import { EventType } from '../components/inputs/submit'
+import { getUserSession } from './googleAuth'
 import { google } from 'googleapis'
 import type { Event } from '@/types/types'
 
@@ -28,7 +30,22 @@ export async function getGoogleCalendarEvents(accessToken: string, idToken: stri
  }
 }
 
-export async function insertEvent(accessToken: string, idToken: string, refreshToken: string, expiresIn: number, event: Event) {
+export async function getEvent(accessToken: string, idToken: string, refreshToken: string, expiresIn: number, eventId: string) {
+ const auth = await googleAuth(accessToken, idToken, refreshToken, expiresIn)
+ const calendar = google.calendar({ version: 'v3', auth, errorRedactor: false })
+ try {
+  const response = await calendar.events.get({
+   calendarId: 'primary',
+   eventId: eventId,
+  })
+  //   console.log(response)
+  return response.data
+ } catch (e) {
+  console.log(e)
+ }
+}
+
+export async function insertEvent(accessToken: string, idToken: string, refreshToken: string, expiresIn: number, event: any) {
  const auth = await googleAuth(accessToken, idToken, refreshToken, expiresIn)
  const calendar = google.calendar({ version: 'v3', auth, errorRedactor: false })
  try {
@@ -36,9 +53,40 @@ export async function insertEvent(accessToken: string, idToken: string, refreshT
    calendarId: 'primary',
    requestBody: event,
   })
-  console.log(response)
+  //   console.log(response)
+  return response
  } catch (e) {
   console.log(e)
  }
- return
+}
+
+export async function deleteEvent(accessToken: string, idToken: string, refreshToken: string, expiresIn: number, eventId: string) {
+ const auth = await googleAuth(accessToken, idToken, refreshToken, expiresIn)
+ const calendar = google.calendar({ version: 'v3', auth, errorRedactor: false })
+ try {
+  const response = await calendar.events.delete({
+   calendarId: 'primary',
+   eventId: eventId,
+  })
+  //   console.log(response)
+  return response
+ } catch (e) {
+  console.log(e)
+ }
+}
+
+export async function updateEvent(accessToken: string, idToken: string, refreshToken: string, expiresIn: number, event: EventType, eventId: string) {
+ const auth = await googleAuth(accessToken, idToken, refreshToken, expiresIn)
+ const calendar = google.calendar({ version: 'v3', auth, errorRedactor: false })
+ try {
+  const response = await calendar.events.update({
+   calendarId: 'primary',
+   eventId: eventId,
+   requestBody: event,
+  })
+  //   console.log(response)
+  return response
+ } catch (e) {
+  console.log(e)
+ }
 }

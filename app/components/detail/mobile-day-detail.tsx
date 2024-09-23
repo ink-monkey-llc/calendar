@@ -1,11 +1,10 @@
 import { Dialog, DialogTrigger, DialogContent, DialogContainer } from '@/app/components/motion/dialog'
-import DetailContent from './detail-content'
+import MobileDetailContent from './mobile-detail-content'
+import MobileEditContent from '../edit/mobile-edit-content'
 import { useNewEventStore } from '@/app/lib/zustand/store'
 import { CalendarEvent, ColorOption, Day, FormattedWeather } from '@/types/types'
-import EditContent from '../edit/edit-content'
-import DetailCreateContent from '../create/detail-create-content'
 
-function DayDetail({
+function MobileDayDetail({
  children,
  day,
  events,
@@ -19,7 +18,6 @@ function DayDetail({
  todayWeather?: FormattedWeather | null
 }) {
  const isEdit = useNewEventStore((state) => state.isEdit)
- const isCreate = useNewEventStore((state) => state.isCreate)
  return (
   <Dialog
    transition={{
@@ -29,22 +27,18 @@ function DayDetail({
    }}>
    <DialogTrigger>{children}</DialogTrigger>
    <DialogContainer>
-    <DialogContent
-     style={{
-      borderRadius: '12px',
-     }}
-     className='relative w-[500px] h-[450px] m-auto'>
-     <div className='relative p-6 detail-bg h-full w-full left-2 tablet:left-auto '>
+    <DialogContent className='relative w-full h-[450px] m-2'>
+     <div
+      style={{ borderColor: currentColor.value }}
+      className='relative  bg-black h-full w-full rounded-[67px] border-4 '>
       <div
        style={{ backgroundColor: currentColor.value }}
-       className='absolute top-[32px] left-8 right-[54px] bottom-4 rounded-[60px]'
+       className='absolute inset-0 rounded-[60px]'
       />
-      {isCreate ? (
-       <DetailCreateContent color={currentColor} />
-      ) : isEdit ? (
-       <EditContent color={currentColor} />
+      {isEdit ? (
+       <MobileEditContent color={currentColor} />
       ) : (
-       <DetailContent
+       <MobileDetailContent
         todayWeather={todayWeather}
         events={events}
         day={day}
@@ -57,4 +51,4 @@ function DayDetail({
  )
 }
 
-export default DayDetail
+export default MobileDayDetail

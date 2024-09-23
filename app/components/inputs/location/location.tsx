@@ -1,19 +1,25 @@
 import React, { useState } from 'react'
 import { loader } from '@/app/lib/placesApi'
 import { CloseIcon } from '@/app/components/icons/close'
-import { cn } from '@/app/lib/utils'
+import { cn, isJson } from '@/app/lib/utils'
 import { Pin } from '@/app/components/icons/pin'
 import { useNewEventStore } from '@/app/lib/zustand/store'
 
-function Location() {
+function Location({ isEdit = false, setIsEdit }: { isEdit?: boolean; setIsEdit?: React.Dispatch<React.SetStateAction<boolean>> }) {
  const [input, setInput] = useState('')
  const [active, setActive] = useState(false)
  const [selected, setSelected] = useState<any>()
  const [suggestionsResult, setSuggestionsResult] = useState<any[]>([])
+ const location = useNewEventStore((state) => state.location)
  const setLocation = useNewEventStore((state) => state.setLocation)
  const handleClick = async () => {
   setActive(!active)
+  if (setIsEdit) {
+   setIsEdit(false)
+  }
  }
+
+ const loc = location && isJson(location) ? JSON.parse(location) : ''
 
  const getSuggestions = async (input: string) => {
   const { AutocompleteSessionToken, AutocompleteSuggestion } = await loader.importLibrary('places')
@@ -43,14 +49,21 @@ function Location() {
   return true
  }
 
+ const showLocName = () => {
+  if (loc.address.includes(loc.name)) {
+   return false
+  }
+  return true
+ }
+
  const handleSelect = async (pred: any) => {
   const fullPlace = await pred.toPlace()
   const placeInfo = await fullPlace.fetchFields({
    fields: ['displayName', 'formattedAddress'],
   })
-  setLocation(placeInfo.place.formattedAddress)
+  setLocation(JSON.stringify({ address: placeInfo.place.formattedAddress, name: placeInfo.place.displayName }))
   setSelected(placeInfo)
-  console.log(placeInfo)
+  console.log('placeInfo', placeInfo)
   setSuggestionsResult([])
  }
 
@@ -63,13 +76,17 @@ function Location() {
 
  const handleRemove = () => {
   setSelected(null)
+  setLocation('')
   setSuggestionsResult([])
   setInput('')
+  if (setIsEdit) {
+   setIsEdit(false)
+  }
  }
 
  return (
   <div className='mt-1 mb-2'>
-   {!active ? (
+   {!loc && !active ? (
     <div
      onClick={handleClick}
      className='cursor-pointer text-sm mt-2 border border-white/20 rounded-lg w-max px-3 py-0.5 hover:bg-white/20'>
@@ -77,7 +94,7 @@ function Location() {
     </div>
    ) : (
     <>
-     {!selected ? (
+     {!isEdit && !selected ? (
       <>
        <div className='flex items-center justify-between'>
         <label
@@ -106,8 +123,17 @@ function Location() {
        <div className='flex items-center gap-2'>
         <Pin className='w-4 h-4' />
         <div className='text-sm '>
-         {showPlaceName() && <div>{selected.place.displayName} </div>}
-         <div>{selected.place.formattedAddress}</div>
+         {isEdit ? (
+          <>
+           {showLocName() && <div>{loc.name}</div>}
+           <div>{loc.address}</div>
+          </>
+         ) : (
+          <>
+           {showPlaceName() && <div>{selected.place.displayName} </div>}
+           <div>{selected.place.formattedAddress}</div>
+          </>
+         )}
         </div>
         <CloseIcon
          onClick={handleRemove}
@@ -121,12 +147,13 @@ function Location() {
        suggestionsResult?.length > 0 &&
        suggestionsResult.map((sugg: any, i: number) => {
         const pred = sugg.placePrediction
+        // console.log(pred.mainText, pred.secondaryText)
         return (
          <div
           onClick={() => handleSelect(pred)}
           className='cursor-pointer my-0.5 px-2 py-0.5 text-xs rounded-lg hover:bg-white/20'
           key={i}>
-          {pred.mainText.toString()} - {pred.secondaryText.toString()}
+          {pred.mainText.toString()} {pred.secondaryText && `- ${pred.secondaryText?.toString()}`}
          </div>
         )
        })}

@@ -1,19 +1,18 @@
 'use client'
-import React, { use, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useLocalStorage, useWindowSize } from 'usehooks-ts'
-import { Day as DayType, CalendarEvent, Weather, FormattedWeather, ColorOption, colorDefault } from '@/types/types'
-import DayDetail from '../detail/day-detail'
+import { Day as DayType, CalendarEvent, FormattedWeather, ColorOption, colorDefault } from '@/types/types'
+import MobileDayDetail from '../detail/mobile-day-detail'
 import { cn } from '@/app/lib/utils'
 import { Raindrop } from '../icons/raindrop'
 import dayjs from '@/app/lib/dayjs'
 import { trunc } from '@/app/lib/utils'
-import { colorOptions } from '@/data/color-options'
 
 type Props = {
  day: DayType
  index: number
  events: CalendarEvent[]
- todayWeather?: FormattedWeather
+ todayWeather?: FormattedWeather | null
 }
 
 function DayMobile({ day, index, events, todayWeather }: Props) {
@@ -38,15 +37,15 @@ function DayMobile({ day, index, events, todayWeather }: Props) {
   }
  }
  return (
-  <DayDetail
+  <MobileDayDetail
    todayWeather={todayWeather}
    events={eventsForDay}
    currentColor={currentColor}
    day={day}>
-   <div className={cn('relative day-bg opacity-40 max-w-[87px]', isThisMonth && 'opacity-100', width > 420 && 'mb-2')}>
+   <div className={cn('relative day-bg opacity-40 w-full max-w-[87px]', isThisMonth && 'opacity-100', width > 420 && 'mb-2')}>
     <div className='absolute bg-black rounded-xl top-[9px] right-[9px] left-[4px] bottom-[4px] z-0'></div>
     <div className='aspect-square relative rounded-lg z-10 flex justify-between flex-col'>
-     <li
+     <div
       className='text-end p-2 pl-[7px]'
       key={index}>
       <div className=' flex justify-between pr-[6px] pt-[6px]'>
@@ -79,21 +78,21 @@ function DayMobile({ day, index, events, todayWeather }: Props) {
          </div>
         </div>
        ))}
-     </li>
+     </div>
      <div
       style={{ backgroundColor: currentColor.value, color: currentColor.text }}
       className='flex justify-between font-medium text-[.5rem] absolute bottom-[5px] right-[9px] left-[3px] pl-[6px] rounded-b-xl'>
-      <div className={cn(todayWeather ? 'opacity-100' : 'opacity-0', precip === 100 && 'text-[.6rem]')}>
+      <div className={cn(todayWeather ? 'opacity-100' : 'opacity-0', minTemp > 99 && 'text-[.5rem]')}>
        {minTemp}°/ {maxTemp}°
       </div>
-      <div className={cn('flex justify-end items-start', todayWeather ? 'opacity-100' : 'opacity-0', precip === 100 && 'text-[.7rem]')}>
+      <div className={cn('flex justify-end items-start', todayWeather ? 'opacity-100' : 'opacity-0', precip === 100 && 'text-[.5rem]')}>
        {precip}% <Raindrop className='w-4 h-4 -ml-1 -mt-0.5' />
       </div>
      </div>
     </div>
     <div className='gloss absolute top-[8px] left-1 right-[8px] bottom-10 z-20'></div>
    </div>
-  </DayDetail>
+  </MobileDayDetail>
  )
 }
 

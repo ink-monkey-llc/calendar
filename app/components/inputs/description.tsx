@@ -13,13 +13,7 @@ function Description() {
 
  return (
   <div className='mt-2'>
-   {!active ? (
-    <div
-     onClick={() => setActive(true)}
-     className='cursor-pointer text-sm mt-2 border border-white/20 rounded-lg w-max px-3 py-0.5 hover:bg-white/20'>
-     Add description
-    </div>
-   ) : (
+   {active || description ? (
     <>
      <div className='flex items-center justify-between'>
       <label
@@ -41,6 +35,12 @@ function Description() {
       className='rounded-lg w-full text-sm bg-transparent border border-white/20 focus-within:border-white/80 px-1'
      />
     </>
+   ) : (
+    <div
+     onClick={() => setActive(true)}
+     className='cursor-pointer text-sm mt-2 border border-white/20 rounded-lg w-max px-3 py-0.5 hover:bg-white/20'>
+     Add description
+    </div>
    )}
   </div>
  )
