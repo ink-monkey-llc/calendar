@@ -1,13 +1,13 @@
-'use client'
-import React, { useState } from 'react'
-import { useWindowSize } from 'usehooks-ts'
+import React from 'react'
 import MenuBtns from './menu-btns'
 import MobileMenu from './mobile-menu'
 
 function Menu({ action }: { action: () => Promise<void> }) {
- const { width } = useWindowSize()
- const isMobile = width < 780
- return <div>{isMobile ? <MobileMenu action={action} /> : <MenuBtns action={action} />}</div>
+ return (
+  <div>
+   <MobileMenu action={action} /> <MenuBtns />
+  </div>
+ )
 }
 
 export default Menu

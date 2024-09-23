@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { cn } from '@/app/lib/utils'
+import { cn, isJson } from '@/app/lib/utils'
 import { CalendarEvent, ColorOption } from '@/types/types'
 import { More } from '../icons/more'
 import dayjs from '@/app/lib/dayjs'
@@ -16,6 +16,15 @@ function DayEvent({ event, color }: { event: CalendarEvent; color: ColorOption }
  const endTime = dayjs(event.end.dateTime).format('h:mm a')
  const descHtml = { __html: event.description }
  const hasDesc = !!event.description
+ const loc = hasLocation && isJson(event.location) ? JSON.parse(event.location) : { name: event.location, address: '' }
+ //  console.log(event.location)
+ const showPlaceName = () => {
+  if (loc.address.includes(loc.name)) {
+   return false
+  }
+  return true
+ }
+
  return (
   <div
    onClick={() => setOpen(!open)}
@@ -48,9 +57,12 @@ function DayEvent({ event, color }: { event: CalendarEvent; color: ColorOption }
        className='text-sm text-wrap px-1 rounded-md mb-1'
       />
       {hasLocation && (
-       <div className='flex justify-between items-center gap-2'>
+       <div className='flex justify-start items-center gap-2'>
         <Pin className='min-w-4 min-h-4' />
-        <span className='text-xs'>{event.location}</span>
+        <div className='flex flex-col'>
+         {showPlaceName() && <span className='text-xs'>{loc.name}</span>}
+         <span className='text-xs'>{loc.address}</span>
+        </div>
        </div>
       )}
       <div

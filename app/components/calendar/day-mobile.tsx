@@ -1,13 +1,12 @@
 'use client'
-import React, { use, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useLocalStorage, useWindowSize } from 'usehooks-ts'
-import { Day as DayType, CalendarEvent, Weather, FormattedWeather, ColorOption, colorDefault } from '@/types/types'
-import DayDetail from '../detail/day-detail'
+import { Day as DayType, CalendarEvent, FormattedWeather, ColorOption, colorDefault } from '@/types/types'
+import MobileDayDetail from '../detail/mobile-day-detail'
 import { cn } from '@/app/lib/utils'
 import { Raindrop } from '../icons/raindrop'
 import dayjs from '@/app/lib/dayjs'
 import { trunc } from '@/app/lib/utils'
-import { colorOptions } from '@/data/color-options'
 
 type Props = {
  day: DayType
@@ -38,7 +37,7 @@ function DayMobile({ day, index, events, todayWeather }: Props) {
   }
  }
  return (
-  <DayDetail
+  <MobileDayDetail
    todayWeather={todayWeather}
    events={eventsForDay}
    currentColor={currentColor}
@@ -83,17 +82,17 @@ function DayMobile({ day, index, events, todayWeather }: Props) {
      <div
       style={{ backgroundColor: currentColor.value, color: currentColor.text }}
       className='flex justify-between font-medium text-[.5rem] absolute bottom-[5px] right-[9px] left-[3px] pl-[6px] rounded-b-xl'>
-      <div className={cn(todayWeather ? 'opacity-100' : 'opacity-0', precip === 100 && 'text-[.6rem]')}>
+      <div className={cn(todayWeather ? 'opacity-100' : 'opacity-0', minTemp > 99 && 'text-[.5rem]')}>
        {minTemp}°/ {maxTemp}°
       </div>
-      <div className={cn('flex justify-end items-start', todayWeather ? 'opacity-100' : 'opacity-0', precip === 100 && 'text-[.7rem]')}>
+      <div className={cn('flex justify-end items-start', todayWeather ? 'opacity-100' : 'opacity-0', precip === 100 && 'text-[.5rem]')}>
        {precip}% <Raindrop className='w-4 h-4 -ml-1 -mt-0.5' />
       </div>
      </div>
     </div>
     <div className='gloss absolute top-[8px] left-1 right-[8px] bottom-10 z-20'></div>
    </div>
-  </DayDetail>
+  </MobileDayDetail>
  )
 }
 

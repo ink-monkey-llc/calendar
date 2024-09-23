@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react'
-import { CalendarEvent, ColorOption } from '@/types/types'
+import React, { useEffect } from 'react'
+import { ColorOption } from '@/types/types'
 import 'react-datepicker/dist/react-datepicker.css'
 import { useQuery } from '@tanstack/react-query'
 import { fetchEvent } from '@/app/resource/events'
@@ -10,13 +10,11 @@ import Summary from '../inputs/summary'
 import Description from '../inputs/description'
 import Location from '../inputs/location/location'
 import Submit from '../inputs/submit'
-import dayjs from '@/app/lib/dayjs'
 import { useNewEventStore } from '@/app/lib/zustand/store'
 import { processDateTime } from '@/app/lib/date-utils'
 
-function EditContent({ color }: { color: ColorOption }) {
+function MobileEditContent({ color }: { color: ColorOption }) {
  const eventId = useNewEventStore((state) => state.eventId)
- const [isEdit, setIsEdit] = useState(true)
  const setSummary = useNewEventStore((state) => state.setSummary)
  const setDescription = useNewEventStore((state) => state.setDescription)
  const setLocation = useNewEventStore((state) => state.setLocation)
@@ -53,22 +51,18 @@ function EditContent({ color }: { color: ColorOption }) {
 
  return (
   <div>
-   <h2
-    style={{ color: color.text }}
-    className='text-2xl pt-5  z-50 relative text-center'>
-    Edit Event
-   </h2>
+   <h2 className='text-2xl pt-5 z-50 relative text-center'>Edit Event</h2>
    <div
     style={{ backgroundColor: color.value }}
-    className='absolute top-[32px] left-8 right-[54px] bottom-4 rounded-[60px]'
+    className='absolute top-0 left-0 right-0 bottom-0 rounded-[60px]'
    />
-   <div className='z-50 relative pl-2 pr-4 pt-2 '>
+   <div className='z-50 relative pt-2 '>
     <form
      style={{
       scrollbarWidth: 'thin',
       scrollbarColor: `${color.value} transparent`,
      }}
-     className='bg-black h-[300px] mr-[14px] px-2 overflow-y-scroll flex flex-col'>
+     className='bg-black h-[320px]  px-2 overflow-y-scroll flex flex-col'>
      <Summary />
      <DateRange />
      <div className='flex gap-2 items-center mt-2'>
@@ -77,10 +71,7 @@ function EditContent({ color }: { color: ColorOption }) {
       <AllDay />
      </div>
      <Description />
-     <Location
-      isEdit={isEdit}
-      setIsEdit={setIsEdit}
-     />
+     <Location />
      <Submit />
     </form>
    </div>
@@ -88,4 +79,4 @@ function EditContent({ color }: { color: ColorOption }) {
  )
 }
 
-export default EditContent
+export default MobileEditContent

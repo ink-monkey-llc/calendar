@@ -32,7 +32,7 @@ function Day({ day, index, events, todayWeather }: Props) {
    events={eventsForDay}
    currentColor={currentColor}
    day={day}>
-   <div className={cn('relative day-bg opacity-40 w-[108px] h-[108px]', isThisMonth && 'opacity-100')}>
+   <div className={cn('relative day-bg opacity-40 w-[108px] h-[108px] m-auto tablet:mb-[12px] desktop:mb-0', isThisMonth && 'opacity-100')}>
     <div className='absolute bg-black rounded-xl top-[9px] right-[9px] left-[4px] bottom-[4px] z-0'></div>
     {/* <Suspense fallback={<div className='w-[108px] h-[108px] z-50'>Loading...</div>}> */}
     <DayContent

@@ -11,6 +11,7 @@ export type State = {
  allDay: boolean
  eventId: string
  isEdit: boolean
+ isCreate: boolean
 }
 
 export type Action = {
@@ -23,6 +24,7 @@ export type Action = {
  setEndTime: (endTime: string) => void
  setAllDay: (allDay: boolean) => void
  setIsEdit: (isEdit: boolean) => void
+ setIsCreate: (isCreate: boolean) => void
  setEventId: (eventId: string) => void
  reset: () => void
 }
@@ -36,6 +38,7 @@ const initialState: State = {
  startTime: new Date().toString(),
  endTime: new Date().toString(),
  allDay: true,
+ isCreate: false,
  eventId: '',
  isEdit: false,
 }
@@ -51,6 +54,7 @@ export const useNewEventStore = create<Action & State>()((set) => ({
  setEndTime: (endTime: string) => set({ endTime }),
  setAllDay: (allDay: boolean) => set({ allDay }),
  setIsEdit: (isEdit: boolean) => set({ isEdit }),
+ setIsCreate: (isCreate: boolean) => set({ isCreate }),
  setEventId: (eventId: string) => set({ eventId }),
  reset: () => set(initialState),
 }))
