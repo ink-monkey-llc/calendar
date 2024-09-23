@@ -1,6 +1,5 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
-import { Toaster } from 'sonner'
 import { cn } from './lib/utils'
 import { Providers } from './lib/rq/providers'
 import './globals.css'
@@ -19,7 +18,6 @@ export default function RootLayout({
 }>) {
  return (
   <html lang='en'>
-   <Toaster />
    <body
     style={{ '--accent-hsl': 'var(--blue-hsl)' }}
     className={cn(inter.className, 'relative')}>

@@ -56,7 +56,7 @@ function DayMobile({ day, index, events, todayWeather }: Props) {
        </div>
        <div
         style={{ backgroundColor: currentColor.value, color: currentColor.text }}
-        className='flex justify-center text-white text-lg rounded-[4px] w-[29px]'>
+        className='flex justify-center text-white text-lg rounded-[4px] w-[29px] leading-tight'>
         {day.day}
        </div>
       </div>

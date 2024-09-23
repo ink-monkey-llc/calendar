@@ -7,6 +7,7 @@ import { useLocalStorage } from 'usehooks-ts'
 import dayjs from '@/app/lib/dayjs'
 import DayEvent from './day-event'
 import { Raindrop } from '../icons/raindrop'
+import DetailCreateBtn from './detail-create-btn'
 
 function MobileDetailContent({ day, events, todayWeather }: { day: Day; events: CalendarEvent[]; todayWeather?: FormattedWeather | null }) {
  const [color, setColor] = useLocalStorage<ColorOption>('color', colorDefault)
@@ -30,6 +31,10 @@ function MobileDetailContent({ day, events, todayWeather }: { day: Day; events: 
      scrollbarColor: `${currentColor.value} transparent`,
     }}
     className='bg-black h-[320px] overflow-y-scroll'>
+    <DetailCreateBtn
+     day={day}
+     currentColor={currentColor}
+    />
     {events.map((event, index) => (
      <DayEvent
       key={event.id}
