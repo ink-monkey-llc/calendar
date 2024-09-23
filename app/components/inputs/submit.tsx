@@ -17,6 +17,7 @@ function Submit() {
  const allDay = useNewEventStore((state) => state.allDay)
  const isEdit = useNewEventStore((state) => state.isEdit)
  const eventId = useNewEventStore((state) => state.eventId)
+ const setIsCreate = useNewEventStore((state) => state.setIsCreate)
  const reset = useNewEventStore((state) => state.reset)
 
  const { setIsOpen } = useDialog()
@@ -57,12 +58,24 @@ function Submit() {
   mutation.mutate(event())
  }
 
+ const handleCancel = () => {
+  setIsCreate(false)
+  reset()
+ }
+
  return (
-  <div
-   onClick={handleSubmit}
-   className='cursor-pointer m-auto px-4 py-0.5 rounded-lg bg-black border-2 border-white text-white font-semibold hover:bg-white hover:text-black'>
-   {!isEdit && (mutation.isPending ? 'Creating event...' : mutation.isError ? 'Error creating event' : 'Create')}
-   {isEdit && (mutation.isPending ? 'Updating event...' : mutation.isError ? 'Error updating event' : 'Update')}
+  <div className='flex gap-8 items-center justify-center mb-2 mt-4'>
+   <div
+    className='cursor-pointer px-4 py-0.5 rounded-lg border-2 border-white/20  hover:bg-white/20 hover:border-white/40 transition-all'
+    onClick={handleCancel}>
+    Cancel
+   </div>
+   <div
+    onClick={handleSubmit}
+    className='cursor-pointer px-4 py-0.5 rounded-lg bg-black border-2 border-white text-white font-semibold hover:bg-white hover:text-black transition-all'>
+    {!isEdit && (mutation.isPending ? 'Creating event...' : mutation.isError ? 'Error creating event' : 'Create')}
+    {isEdit && (mutation.isPending ? 'Updating event...' : mutation.isError ? 'Error updating event' : 'Update')}
+   </div>
   </div>
  )
 }
