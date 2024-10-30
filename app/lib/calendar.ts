@@ -5,12 +5,16 @@ import { google } from 'googleapis'
 import type { Event } from '@/types/types'
 
 async function googleAuth(accessToken: string, idToken: string, refreshToken: string, expiresIn: number) {
- const auth = new google.auth.OAuth2({
-  clientId: process.env.GOOGLE_CLIENT_ID,
-  clientSecret: process.env.GOOGLE_CLIENT_SECRET,
- })
- auth.setCredentials({ access_token: accessToken, id_token: idToken, refresh_token: refreshToken, expiry_date: expiresIn })
- return auth
+ try {
+  const auth = new google.auth.OAuth2({
+   clientId: process.env.GOOGLE_CLIENT_ID,
+   clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+  })
+  auth.setCredentials({ access_token: accessToken, id_token: idToken, refresh_token: refreshToken, expiry_date: expiresIn })
+  return auth
+ } catch (e) {
+  console.log('auth err', e)
+ }
 }
 
 export async function getGoogleCalendarEvents(accessToken: string, idToken: string, refreshToken: string, expiresIn: number) {
@@ -19,14 +23,15 @@ export async function getGoogleCalendarEvents(accessToken: string, idToken: stri
  try {
   const events = await calendar.events.list({
    calendarId: 'primary',
-   timeMin: new Date().toISOString(),
+   //    timeMin: new Date().toISOString(),
    maxResults: 100,
    singleEvents: true,
    orderBy: 'startTime',
   })
+  //   console.log(events)
   return events.data.items || []
  } catch (e) {
-  console.log(e)
+  console.log('get events err', e)
  }
 }
 

@@ -34,14 +34,16 @@ function DetailContent({ day, events, todayWeather }: { day: Day; events: Calend
      day={day}
      currentColor={currentColor}
     />
-    {events.length < 1 && <div className='mt-4 text-lg text-center'>No events today</div>}
-    {events.map((event, index) => (
-     <DayEvent
-      key={event.id}
-      color={currentColor}
-      event={event}
-     />
-    ))}
+
+    {!events || (events.length < 1 && <div className='mt-4 text-lg text-center'>No events today</div>)}
+    {events &&
+     events.map((event, index) => (
+      <DayEvent
+       key={event.id}
+       color={currentColor}
+       event={event}
+      />
+     ))}
    </div>
    {todayWeather && (
     <div

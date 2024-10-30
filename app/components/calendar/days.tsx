@@ -23,7 +23,8 @@ function Days({ year, month }: { year: number; month: number }) {
   refetchOnWindowFocus: false,
  })
 
- //  const Day = dynamic(() => import('./day'))
+ //  const Day = dynamic(() => import('./day'), { ssr: false })
+ //  const DayMobile = dynamic(() => import('./day-mobile'))
 
  const { width } = useWindowSize()
  const isMobile = width < 465
@@ -46,6 +47,7 @@ function Days({ year, month }: { year: number; month: number }) {
     return (
      <div key={day.date}>
       {isMobile ? (
+       //    <Suspense fallback={<div className='w-full h-full z-50'>Loading...</div>}>
        <DayMobile
         todayWeather={todayWeather}
         events={eventsQuery.isPending ? [] : (eventsQuery.data as CalendarEvent[])}
@@ -54,6 +56,8 @@ function Days({ year, month }: { year: number; month: number }) {
         index={index}
        />
       ) : (
+       //    </Suspense>
+       //    <Suspense fallback={<div className='w-full h-full z-50'>Loading...</div>}>
        <Day
         todayWeather={todayWeather}
         events={eventsQuery.isPending ? [] : (eventsQuery.data as CalendarEvent[])}
@@ -61,6 +65,7 @@ function Days({ year, month }: { year: number; month: number }) {
         day={day}
         index={index}
        />
+       //    </Suspense>
       )}
      </div>
     )

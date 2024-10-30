@@ -20,6 +20,7 @@ function Day({ day, index, events, todayWeather }: Props) {
  const eventsForDay = events?.filter((event) => event.start.date?.includes(day.date) || event.start.dateTime?.includes(day.date))
 
  //  const DayContent = dynamic(() => import('./day-content'), { ssr: false })
+ //  const DayDetail = dynamic(() => import('../detail/day-detail'), { ssr: false })
 
  const isThisMonth = day.isCurrentMonth
  useEffect(() => {
@@ -33,7 +34,7 @@ function Day({ day, index, events, todayWeather }: Props) {
    currentColor={currentColor}
    day={day}>
    <div className={cn('relative day-bg opacity-40 w-[108px] h-[108px] m-auto tablet:mb-[12px] desktop:mb-0', isThisMonth && 'opacity-100')}>
-    <div className='absolute bg-black rounded-xl top-[9px] right-[9px] left-[4px] bottom-[4px] z-0'></div>
+    <div className='absolute bg-black rounded-xl top-[9px] right-[9px] left-[4px] bottom-[4px] z-0' />
     {/* <Suspense fallback={<div className='w-[108px] h-[108px] z-50'>Loading...</div>}> */}
     <DayContent
      day={day}
@@ -43,7 +44,7 @@ function Day({ day, index, events, todayWeather }: Props) {
      currentColor={currentColor}
     />
     {/* </Suspense> */}
-    <div className='gloss absolute top-[8px] left-1 right-[8px] bottom-10 z-20'></div>
+    <div className='gloss absolute top-[8px] left-1 right-[8px] bottom-10 z-20' />
    </div>
   </DayDetail>
  )

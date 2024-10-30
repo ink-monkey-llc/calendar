@@ -57,7 +57,7 @@ function DayContent({
        <div
         style={{ color: eventColor }}
         className=''>
-        {time(event.start.dateTime)} -
+        {time(event.start.dateTime)}
        </div>
        <div
         style={{ color: eventColor }}
