@@ -33,7 +33,7 @@ function MobileDayDetail({
     <DialogContent className='relative w-full h-[450px] m-2'>
      <div
       style={{ borderColor: currentColor.value }}
-      className='relative  bg-black h-full w-full rounded-[67px] border-4 '>
+      className='relative mob-detail-bg bg-black h-full w-full rounded-[67px] border-4 '>
       <div
        style={{ backgroundColor: currentColor.value }}
        className='absolute inset-0 rounded-[60px]'

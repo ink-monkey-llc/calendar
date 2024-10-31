@@ -7,6 +7,7 @@ import { cn } from '@/app/lib/utils'
 import { Raindrop } from '../icons/raindrop'
 import dayjs from '@/app/lib/dayjs'
 import { trunc } from '@/app/lib/utils'
+import DayDetail from '../detail/day-detail'
 
 type Props = {
  day: DayType
@@ -37,7 +38,7 @@ function DayMobile({ day, index, events, todayWeather }: Props) {
   }
  }
  return (
-  <MobileDayDetail
+  <DayDetail
    todayWeather={todayWeather}
    events={eventsForDay}
    currentColor={currentColor}
@@ -66,16 +67,8 @@ function DayMobile({ day, index, events, todayWeather }: Props) {
          style={{ borderColor: currentColor.ul }}
          className='flex justify-between border-b mr-1 text-[.4rem] text-white'
          key={event.id}>
-         <div
-          //   style={{ color: currentColor.value }}
-          className=''>
-          {time(event.start.dateTime)} -{' '}
-         </div>
-         <div
-          //   style={{ color: currentColor.value }}
-          className=' truncate '>
-          {trunc(event.summary, 11, true)}
-         </div>
+         <div className=''>{time(event.start.dateTime)} - </div>
+         <div className=' truncate '>{trunc(event.summary, 11, true)}</div>
         </div>
        ))}
      </div>
@@ -92,7 +85,7 @@ function DayMobile({ day, index, events, todayWeather }: Props) {
     </div>
     <div className='gloss absolute top-[8px] left-1 right-[8px] bottom-10 z-20'></div>
    </div>
-  </MobileDayDetail>
+  </DayDetail>
  )
 }
 

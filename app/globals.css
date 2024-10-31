@@ -111,3 +111,14 @@ input[type="time"]::-webkit-calendar-picker-indicator {
   background-position: center;
   background-repeat: no-repeat;
 }
+
+.mob-detail-bg {
+  background-image: url('/bg-lg-skinny.png');
+  background-size: 100% 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.hilite {
+  border: red 2px dashed;
+}

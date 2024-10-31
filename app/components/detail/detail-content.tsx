@@ -1,8 +1,9 @@
 'use client'
 import { useState, useEffect } from 'react'
 import { CalendarEvent, ColorOption, Day, FormattedWeather, colorDefault } from '@/types/types'
+import { cn } from '@/app/lib/utils'
 import React from 'react'
-import { useLocalStorage } from 'usehooks-ts'
+import { useLocalStorage, useWindowSize } from 'usehooks-ts'
 import dayjs from '@/app/lib/dayjs'
 import DayEvent from './day-event'
 import { Raindrop } from '../icons/raindrop'
@@ -11,7 +12,8 @@ import DetailCreateBtn from './detail-create-btn'
 function DetailContent({ day, events, todayWeather }: { day: Day; events: CalendarEvent[]; todayWeather?: FormattedWeather | null }) {
  const [color, setColor] = useLocalStorage<ColorOption>('color', colorDefault)
  const [currentColor, setCurrentColor] = useState<ColorOption>(color)
-
+ const { width } = useWindowSize()
+ const isMobile = width < 465
  useEffect(() => {
   setCurrentColor(color)
  }, [color])
@@ -29,7 +31,7 @@ function DetailContent({ day, events, todayWeather }: { day: Day; events: Calend
      scrollbarWidth: 'thin',
      scrollbarColor: `${currentColor.value} transparent`,
     }}
-    className='bg-black mr-[14px] h-[260px] overflow-y-scroll'>
+    className={cn('bg-black mr-[14px] h-[260px] overflow-y-scroll', isMobile && 'h-[290px]')}>
     <DetailCreateBtn
      day={day}
      currentColor={currentColor}

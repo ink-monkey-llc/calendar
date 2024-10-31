@@ -59,7 +59,7 @@ function Submit() {
  }
 
  const handleCancel = () => {
-  setIsCreate(false)
+  setIsOpen(false)
   reset()
  }
 

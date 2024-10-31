@@ -1,5 +1,7 @@
 import React from 'react'
 import { ColorOption } from '@/types/types'
+import { cn } from '@/app/lib/utils'
+import { useWindowSize } from 'usehooks-ts'
 import 'react-datepicker/dist/react-datepicker.css'
 import DateRange from '../inputs/date-range'
 import AllDay from '../inputs/all-day'
@@ -10,6 +12,8 @@ import Location from '../inputs/location/location'
 import Submit from '../inputs/submit'
 
 function CreateContent({ color }: { color: ColorOption }) {
+ const { width } = useWindowSize()
+ const isMobile = width < 465
  return (
   <div className='z-50 relative pl-2 pr-4 pt-2 '>
    <form
