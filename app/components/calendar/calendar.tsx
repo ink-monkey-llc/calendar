@@ -2,20 +2,24 @@
 import React, { Suspense } from 'react'
 import MonthSelect from './month-select'
 import dynamic from 'next/dynamic'
+import { useNewEventStore } from '@/app/lib/zustand/store'
 // import Days from './days'
 
-function Calendar({ month, year }: { month: number; year: number }) {
+function Calendar() {
  const Days = dynamic(() => import('./days'), { ssr: false })
+ const currentMonth = useNewEventStore((state) => state.currentMonth)
+ const currentYear = useNewEventStore((state) => state.currentYear)
+
  return (
   <div className='w-full max-w-[1200px] mx-auto'>
    <MonthSelect
-    month={month}
-    year={year}
+    month={currentMonth}
+    year={currentYear}
    />
 
    <Days
-    year={year}
-    month={month}
+    year={currentYear}
+    month={currentMonth}
    />
   </div>
  )

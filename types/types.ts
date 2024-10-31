@@ -1,6 +1,5 @@
 import { Session } from 'inspector'
-import { decl } from 'postcss'
-
+import { colorOptions } from '@/data/color-options'
 export type CalendarEvent = {
  kind: string
  etag: string
@@ -98,14 +97,7 @@ export type FormattedWeather = {
  precipProb: number
 }
 
-export const colorDefault: ColorOption = {
- id: '#3e4e63',
- name: '#3e4e63',
- variable: '#3e4e63',
- value: '#3e4e63',
- text: '#3e4e63',
- ul: '#3e4e63',
-}
+export const colorDefault: ColorOption = colorOptions[0]
 
 export type ColorOption = {
  id: string

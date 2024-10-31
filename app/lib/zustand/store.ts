@@ -1,6 +1,10 @@
 import { create } from 'zustand'
+import dayjs from '../dayjs'
 
-export type State = {
+const initYear = Number(dayjs().format('YYYY'))
+const initMonth = Number(dayjs().format('M'))
+
+export type NoDateState = {
  summary: string
  description: string
  location: string
@@ -12,6 +16,10 @@ export type State = {
  eventId: string
  isEdit: boolean
  isCreate: boolean
+}
+export type State = NoDateState & {
+ currentMonth: number
+ currentYear: number
 }
 
 export type Action = {
@@ -26,10 +34,12 @@ export type Action = {
  setIsEdit: (isEdit: boolean) => void
  setIsCreate: (isCreate: boolean) => void
  setEventId: (eventId: string) => void
+ setCurrentMonth: (currentMonth: number) => void
+ setCurrentYear: (currentYear: number) => void
  reset: () => void
 }
 
-const initialState: State = {
+const initialState: NoDateState = {
  summary: '',
  description: '',
  location: '',
@@ -45,6 +55,8 @@ const initialState: State = {
 
 export const useNewEventStore = create<Action & State>()((set) => ({
  ...initialState,
+ currentMonth: initMonth,
+ currentYear: initYear,
  setSummary: (summary: string) => set({ summary }),
  setDescription: (description: string) => set({ description }),
  setLocation: (location: string) => set({ location }),
@@ -56,5 +68,7 @@ export const useNewEventStore = create<Action & State>()((set) => ({
  setIsEdit: (isEdit: boolean) => set({ isEdit }),
  setIsCreate: (isCreate: boolean) => set({ isCreate }),
  setEventId: (eventId: string) => set({ eventId }),
+ setCurrentMonth: (currentMonth: number) => set({ currentMonth }),
+ setCurrentYear: (currentYear: number) => set({ currentYear }),
  reset: () => set(initialState),
 }))
