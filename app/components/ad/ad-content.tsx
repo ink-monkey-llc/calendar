@@ -1,15 +1,15 @@
-import React, { useActionState } from 'react'
+import React from 'react'
 import { cn } from '@/app/lib/utils'
 import Image from 'next/image'
 import { CloseIcon } from '../icons/close'
 import { luckiest_guy } from '@/fonts'
 import ProdCard from './prod-card'
+import { useLocalStorage } from 'usehooks-ts'
 import { adDataLeft, adDataRight } from '@/data/ad-data'
 import { useNewEventStore } from '@/app/lib/zustand/store'
 
 function AdContent() {
  const setIsAd = useNewEventStore((state) => state.setIsAd)
-
  return (
   <div className='absolute top-[32px] left-8 right-[54px] bottom-4 rounded-[60px] bg-var-bg pr-4'>
    <div
