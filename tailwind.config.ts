@@ -5,6 +5,8 @@ const config: Config = {
  theme: {
   extend: {
    colors: {
+    'var-bg': '#1e1e1e',
+    'var-bg-sec': '#2b2b2b',
     'var-orange': '#F7921D',
     'var-red': '#ED2024',
     'var-sky': '#3FBAEB',
@@ -15,6 +17,12 @@ const config: Config = {
     'var-purple': '#8E4E9F',
     'var-white': '#D8D9D9',
     'var-green': '#178942',
+    'var-ad-text': '#E6BE54',
+    'var-ad-hover': '#FCC000',
+    'var-dec-hover': '#5bdee2',
+    'var-win-hover': '#c95fd1',
+    'var-card-hover': '#4b68b3',
+    'var-truck-hover': '#fd9760',
    },
   },
   screens: {

@@ -16,6 +16,7 @@ export type NoDateState = {
  eventId: string
  isEdit: boolean
  isCreate: boolean
+ isAd: boolean
 }
 export type State = NoDateState & {
  currentMonth: number
@@ -36,6 +37,7 @@ export type Action = {
  setEventId: (eventId: string) => void
  setCurrentMonth: (currentMonth: number) => void
  setCurrentYear: (currentYear: number) => void
+ setIsAd: (isAd: boolean) => void
  reset: () => void
 }
 
@@ -49,6 +51,7 @@ const initialState: NoDateState = {
  endTime: new Date().toString(),
  allDay: true,
  isCreate: false,
+ isAd: true,
  eventId: '',
  isEdit: false,
 }
@@ -70,5 +73,6 @@ export const useNewEventStore = create<Action & State>()((set) => ({
  setEventId: (eventId: string) => set({ eventId }),
  setCurrentMonth: (currentMonth: number) => set({ currentMonth }),
  setCurrentYear: (currentYear: number) => set({ currentYear }),
+ setIsAd: (isAd: boolean) => set({ isAd }),
  reset: () => set(initialState),
 }))

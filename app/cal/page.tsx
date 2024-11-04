@@ -21,7 +21,7 @@ async function Cal() {
  }
 
  return (
-  <div className='relative calendar-wrapper lg-mb:w-max m-auto p-4 pt-2 flex items-start justify-center h-full tablet:max-w-[900px] tablet:w-full desktop:max-w-[1200px] desktop:w-full lg-mb:h-full tablet:h-[650px] desktop:h-full'>
+  <div className='relative calendar-wrapper lg-mb:w-max m-auto p-4 pt-2 flex items-start justify-center h-full tablet:max-w-[900px] tablet:w-full desktop:max-w-[1200px] desktop:w-full lg-mb:h-full  lg-mb:min-w-[470px] tablet:h-[650px] desktop:h-[380px]'>
    <Calendar />
    <Menu action={handleAction} />
   </div>

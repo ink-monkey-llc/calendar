@@ -5,6 +5,7 @@
 :root {
   --fg-primary: #f5f5f5;
   --bg-primary: #1e1e1e;
+  --bg-secondary: #2c2c2c;
   --grey-100: #e4e9f0;
   --grey-200: #cfd7e3;
   --grey-300: #b5c0cd;
@@ -37,6 +38,14 @@ body {
   color: var(--fg-primary);
   background: var(--bg-primary);
   scrollbar-width: thin;
+}
+
+.temp-col {
+  --decal-light: #5bdee2;
+  --window-light: #c95fd1;
+  --card-light: #4b68b3;
+  --eye-light: #fd9760;
+
 }
 
 

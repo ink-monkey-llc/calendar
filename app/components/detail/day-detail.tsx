@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { Dialog, DialogTrigger, DialogContent, DialogContainer } from '@/app/components/motion/dialog'
 import { cn } from '@/app/lib/utils'
 import DetailContent from './detail-content'
@@ -5,7 +6,9 @@ import { useNewEventStore } from '@/app/lib/zustand/store'
 import { CalendarEvent, ColorOption, Day, FormattedWeather } from '@/types/types'
 import EditContent from '../edit/edit-content'
 import DetailCreateContent from '../create/detail-create-content'
-import { useWindowSize } from 'usehooks-ts'
+import AdContent from '../ad/ad-content'
+import { useLocalStorage, useWindowSize } from 'usehooks-ts'
+import { useShowComponentOnce } from '@/hooks/show-ad'
 
 function DayDetail({
  children,
@@ -20,10 +23,27 @@ function DayDetail({
  currentColor: ColorOption
  todayWeather?: FormattedWeather | null
 }) {
+ //  const isAd = useShowComponentOnce()
  const { width } = useWindowSize()
  const isEdit = useNewEventStore((state) => state.isEdit)
  const isCreate = useNewEventStore((state) => state.isCreate)
+ const setIsAd = useNewEventStore((state) => state.setIsAd)
+ const isAd = useNewEventStore((state) => state.isAd)
+ const DELAY_IN_MS = 5 * 60 * 1000 // 5 minutes
  const isMobile = width < 465
+
+ const [lastShown, setLastShown] = useLocalStorage('lastShown', 0)
+
+ useEffect(() => {
+  const now = Date.now()
+  if (now - lastShown > DELAY_IN_MS) {
+   setIsAd(true)
+   setLastShown(now)
+  } else {
+   setIsAd(false)
+  }
+ }, [isAd])
+
  return (
   <Dialog
    transition={{
@@ -47,6 +67,8 @@ function DayDetail({
        <DetailCreateContent color={currentColor} />
       ) : isEdit ? (
        <EditContent color={currentColor} />
+      ) : isAd ? (
+       <AdContent />
       ) : (
        <DetailContent
         todayWeather={todayWeather}
