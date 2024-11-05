@@ -24,6 +24,8 @@ const config: Config = {
     'var-win-hover': '#c95fd1',
     'var-card-hover': '#4b68b3',
     'var-truck-hover': '#fd9760',
+    'var-home-border': '#CCCCCC',
+    'var-home-btn': '#454545',
    },
   },
   screens: {
