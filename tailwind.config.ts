@@ -6,6 +6,7 @@ const config: Config = {
   extend: {
    colors: {
     'var-bg': '#1e1e1e',
+    'var-bg-dark': '#0a0a0a',
     'var-bg-sec': '#2b2b2b',
     'var-orange': '#F7921D',
     'var-red': '#ED2024',

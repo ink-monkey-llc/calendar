@@ -1,7 +1,7 @@
 'use server'
 import { EventType } from '../components/inputs/submit'
-import { getUserSession } from './googleAuth'
 import { google } from 'googleapis'
+import dayjs from './dayjs'
 import type { Event } from '@/types/types'
 
 async function googleAuth(accessToken: string, idToken: string, refreshToken: string, expiresIn: number) {
@@ -18,17 +18,18 @@ async function googleAuth(accessToken: string, idToken: string, refreshToken: st
 }
 
 export async function getGoogleCalendarEvents(accessToken: string, idToken: string, refreshToken: string, expiresIn: number) {
+ const min = dayjs().startOf('month').toISOString()
  const auth = await googleAuth(accessToken, idToken, refreshToken, expiresIn)
  const calendar = google.calendar({ version: 'v3', auth, errorRedactor: false })
  try {
   const events = await calendar.events.list({
    calendarId: 'primary',
-   //    timeMin: new Date().toISOString(),
+   timeMin: min,
    maxResults: 100,
    singleEvents: true,
    orderBy: 'startTime',
   })
-  //   console.log(events)
+  //   console.log(events.data.items)
   return events.data.items || []
  } catch (e) {
   console.log('get events err', e)

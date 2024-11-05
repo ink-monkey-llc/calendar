@@ -29,19 +29,22 @@ function DayDetail({
  const isCreate = useNewEventStore((state) => state.isCreate)
  const setIsAd = useNewEventStore((state) => state.setIsAd)
  const isAd = useNewEventStore((state) => state.isAd)
- const DELAY_IN_MS = 5 * 60 * 1000 // 5 minutes
+ const DELAY_IN_MS = 300000 // 5 minutes
+ //  const DELAY_IN_MS = 1000 // 1 second
  const isMobile = width < 465
 
  const [lastShown, setLastShown] = useLocalStorage('lastShown', 0)
 
  useEffect(() => {
   const now = Date.now()
+  //   console.log(now - lastShown)
   if (now - lastShown > DELAY_IN_MS) {
    setIsAd(true)
    setLastShown(now)
   } else {
    setIsAd(false)
   }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
  }, [isAd])
 
  return (

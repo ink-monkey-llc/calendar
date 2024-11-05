@@ -62,7 +62,7 @@ function DayContent({
        <div
         style={{ color: eventColor }}
         className=' truncate ml-1'>
-        {trunc(event.summary, 13, true)}
+        {trunc(event.summary, 10, true)}
        </div>
       </div>
      ))}

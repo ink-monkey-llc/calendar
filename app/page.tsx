@@ -1,4 +1,5 @@
 import { auth, signIn, signOut } from '@/auth'
+import GoogleIcon from './components/icons/google'
 import { redirect } from 'next/navigation'
 import { Login } from './components/icons/login'
 
@@ -12,17 +13,21 @@ export default async function Home() {
   if (session) {
    await signOut()
   } else {
-   await signIn()
+   await signIn('google')
   }
  }
  return (
-  <form
-   action={handleAction}
-   className='flex h-[100vh] items-center justify-center'>
-   <button className='border-2 border-white cursor-pointer flex gap-2 text-2xl opacity-80 hover:opacity-100 hover:bg-[var(--white25)] transition-all w-max m-auto py-2 px-8 rounded-2xl'>
-    Sign in
-    <Login className='w-8 h-8 ' />
-   </button>
-  </form>
+  <div className='h-[100vh] flex items-center justify-center'>
+   <form
+    action={handleAction}
+    className='group flex flex-col gap-2 items-center justify-center'>
+    <p className='opacity-80 group-hover:opacity-100 transition-all'>To view your calendar,</p>
+    <button className='border-2 bg-var-bg-dark border-white cursor-pointer flex gap-4 text-2xl opacity-80 hover:opacity-100 hover:bg-var-bg-sec transition-all w-max m-auto p-4 rounded-2xl'>
+     <GoogleIcon className='w-8 h-8' />
+     Sign in with Google
+     <Login className='w-8 h-8 ' />
+    </button>
+   </form>
+  </div>
  )
 }
