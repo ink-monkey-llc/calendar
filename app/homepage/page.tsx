@@ -19,7 +19,7 @@ function HomePage() {
      </div>
      <div className={cn(figtree.className, 'text-xl flex flex-col gap-4')}>
       <p>Seamlessly integrate your Google Calendar functionality into a slick user interface.</p>
-      <p>Includes daily weather information and your calendar events.</p>
+      <p>Create, edit, delete, and view your calendar events with daily weather information.</p>
      </div>
      <div className='flex flex-col gap-4'>
       <Link

@@ -22,7 +22,7 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
      prompt: 'consent',
      access_type: 'offline',
      response_type: 'code',
-     scope: 'openid profile email https://www.googleapis.com/auth/calendar https://www.googleapis.com/auth/calendar.events',
+     scope: 'openid profile email https://www.googleapis.com/auth/calendar.events',
     },
    },
   }),
