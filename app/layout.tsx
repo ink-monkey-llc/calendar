@@ -28,3 +28,5 @@ export default function RootLayout({
   </html>
  )
 }
+
+// added new env vars to vercel, pushing to github
