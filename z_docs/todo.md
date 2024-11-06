@@ -2,15 +2,15 @@
 
 ### homepage
 
-- hosted on verified domain
+- hosted on verified domain (done)
 - privacy policy (done)
-- add link to OAuth consent screen
+- add link to OAuth consent screen (done)
 
 ### privacy policy
 
-- hosted on same domain as hoomepage
+- hosted on same domain as homepage (done)
 - link on homepage (done)
-- add link to OAuth consent screen
+- add link to OAuth consent screen (done)
 - add link to app
 
 ### domain ownership
