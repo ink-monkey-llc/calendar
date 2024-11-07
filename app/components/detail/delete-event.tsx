@@ -3,17 +3,36 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 import Spinner from '../spinner/spinner'
 import { TrashIcon } from '../icons/trash'
 import { callDeleteEvent } from '@/app/resource/events'
+import { useNewEventStore } from '@/app/lib/zustand/store'
 function DeleteEvent({ eventId }: { eventId: string }) {
  const [open, setOpen] = useState(false)
+ const reset = useNewEventStore((state) => state.reset)
  const queryClient = useQueryClient()
 
+ const mutFn = async (eventId: string) => {
+  return callDeleteEvent(eventId)
+ }
+
  const mutation = useMutation({
-  mutationFn: (eventId: string) => {
-   return callDeleteEvent(eventId)
+  mutationFn: mutFn,
+  onMutate: async () => {
+   await queryClient.cancelQueries({ queryKey: ['events'] })
+   const previousEvents = queryClient.getQueryData(['events'])
+   queryClient.setQueryData(['events'], (old: any) => {
+    return old.filter((event: any) => event.id !== eventId)
+   })
+   return { previousEvents }
+  },
+  onError: (err, variables, context) => {
+   queryClient.setQueryData(['events'], context?.previousEvents)
   },
   onSuccess: () => {
-   queryClient.invalidateQueries({ queryKey: ['events'] })
+   console.log('onSuccess')
+   reset()
    setOpen(false)
+  },
+  onSettled: () => {
+   queryClient.invalidateQueries({ queryKey: ['events'] })
   },
  })
 
