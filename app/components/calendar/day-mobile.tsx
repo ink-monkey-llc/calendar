@@ -20,7 +20,15 @@ function DayMobile({ day, index, events, todayWeather }: Props) {
  const { width } = useWindowSize()
  const [color, setColor] = useLocalStorage<ColorOption>('color', colorDefault)
  const [currentColor, setCurrentColor] = useState<ColorOption>(colorDefault)
- const eventsForDay = events?.filter((event) => event.start.date?.includes(day.date) || event.start.dateTime?.includes(day.date))
+ const eventsForDay = events?.filter(
+  (event) =>
+   event.start.date?.includes(day.date) ||
+   event.start.dateTime?.includes(day.date) ||
+   event.end.dateTime?.includes(day.date) ||
+   event.end.date?.includes(day.date) ||
+   (new Date(day.date) > new Date(event.start.date) && new Date(day.date) < new Date(event.end.date)) ||
+   (new Date(day.date) > new Date(event.start.dateTime) && new Date(day.date) < new Date(event.end.dateTime))
+ )
  const isToday = dayjs().format('YYYY-MM-DD') === day.date
  const dayLabel = trunc(dayjs(day.date).format('dddd'), 7)
  const isThisMonth = day.isCurrentMonth
@@ -30,9 +38,12 @@ function DayMobile({ day, index, events, todayWeather }: Props) {
  useEffect(() => {
   setCurrentColor(color)
  }, [color])
- const time = (datetime: string | undefined) => {
-  if (datetime) {
-   return dayjs(datetime).format('h:mm a')
+ const time = (event: CalendarEvent) => {
+  if (event.start.dateTime) {
+   if (new Date(day.date) > new Date(event.start.dateTime) && new Date(day.date) < new Date(event.end.dateTime)) {
+    return 'All day'
+   }
+   return dayjs(event.start.dateTime).format('h:mm a')
   } else {
    return 'All day'
   }
@@ -67,7 +78,7 @@ function DayMobile({ day, index, events, todayWeather }: Props) {
          style={{ borderColor: currentColor.ul }}
          className='flex justify-between border-b mr-1 text-[.4rem] text-white'
          key={event.id}>
-         <div className=''>{time(event.start.dateTime)} - </div>
+         <div className=''>{time(event)} - </div>
          <div className=' truncate '>{trunc(event.summary, 11, true)}</div>
         </div>
        ))}

@@ -15,7 +15,7 @@ export type CalendarEvent = {
  creator: { email: string; self: boolean }
  organizer: { email: string; self: boolean }
  start: { date: string; dateTime: string; timeZone: string }
- end: { dateTime: string; timeZone: string }
+ end: { date: string; dateTime: string; timeZone: string }
  recurringEventId: string
  originalStartTime: { dateTime: string; timeZone: string }
  iCalUID: string

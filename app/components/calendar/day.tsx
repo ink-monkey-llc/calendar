@@ -16,9 +16,18 @@ type Props = {
 function Day({ day, index, events, todayWeather }: Props) {
  const [color, setColor] = useLocalStorage<ColorOption>('color', colorDefault)
  const [currentColor, setCurrentColor] = useState<ColorOption>(colorDefault)
- const eventsForDay = events?.filter((event) => event.start.date?.includes(day.date) || event.start.dateTime?.includes(day.date))
+ const eventsForDay = events?.filter(
+  (event) =>
+   event.start.date?.includes(day.date) ||
+   event.start.dateTime?.includes(day.date) ||
+   event.end.dateTime?.includes(day.date) ||
+   event.end.date?.includes(day.date) ||
+   (new Date(day.date) > new Date(event.start.date) && new Date(day.date) < new Date(event.end.date)) ||
+   (new Date(day.date) > new Date(event.start.dateTime) && new Date(day.date) < new Date(event.end.dateTime))
+ )
 
  const isThisMonth = day.isCurrentMonth
+
  useEffect(() => {
   setCurrentColor(color)
  }, [color])

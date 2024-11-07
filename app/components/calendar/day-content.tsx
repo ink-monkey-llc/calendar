@@ -21,9 +21,12 @@ function DayContent({
  const minTemp = todayWeather ? Math.round(todayWeather?.minTemp) : 0
  const precip = todayWeather ? Math.round(todayWeather?.precipProb) : 0
 
- const time = (datetime: string | undefined) => {
-  if (datetime) {
-   return dayjs(datetime).format('h:mm a')
+ const time = (event: CalendarEvent) => {
+  if (event.start.dateTime) {
+   if (new Date(day.date) > new Date(event.start.dateTime) && new Date(day.date) < new Date(event.end.dateTime)) {
+    return 'All day'
+   }
+   return dayjs(event.start.dateTime).format('h:mm a')
   } else {
    return 'All day'
   }
@@ -49,23 +52,25 @@ function DayContent({
      </div>
     </div>
     {eventsForDay?.length > 0 &&
-     eventsForDay.map((event) => (
-      <div
-       style={{ borderColor: currentColor.ul }}
-       className='flex  border-b mr-1 text-[.5rem] text-white'
-       key={event.id}>
+     eventsForDay.map((event) => {
+      return (
        <div
-        style={{ color: eventColor }}
-        className=''>
-        {time(event.start.dateTime)}
+        style={{ borderColor: currentColor.ul }}
+        className='flex  border-b mr-1 text-[.5rem] text-white'
+        key={event.id}>
+        <div
+         style={{ color: eventColor }}
+         className=''>
+         {time(event)}
+        </div>
+        <div
+         style={{ color: eventColor }}
+         className=' truncate ml-1'>
+         {trunc(event.summary, 10, true)}
+        </div>
        </div>
-       <div
-        style={{ color: eventColor }}
-        className=' truncate ml-1'>
-        {trunc(event.summary, 10, true)}
-       </div>
-      </div>
-     ))}
+      )
+     })}
    </div>
    <div
     style={{ backgroundColor: currentColor.value, color: currentColor.text }}
