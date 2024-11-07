@@ -14,7 +14,12 @@ function MonthSelect({ month, year }: { month: number; year: number }) {
   .month(month - 1)
   .format('MMMM')
  return (
-  <div className='flex items-center justify-center gap-3 text-2xl  mx-auto w-full'>
+  <div className='relative flex items-center justify-center gap-3 text-2xl  mx-auto w-full'>
+   <a
+    className='text-xs text-white/60 absolute top-1 left-4 underline hover:text-white'
+    href='/privacy'>
+    Privacy Policy
+   </a>
    <div
     onClick={() => {
      setCurrentMonth(lastMonth.month)
