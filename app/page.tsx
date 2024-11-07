@@ -17,7 +17,7 @@ export default async function Home() {
   }
  }
  return (
-  <div className='h-[100vh] flex items-center justify-center'>
+  <div className='h-[100vh] flex flex-col items-center justify-center'>
    <form
     action={handleAction}
     className='group flex flex-col gap-2 items-center justify-center'>
@@ -28,6 +28,11 @@ export default async function Home() {
      <Login className='w-8 h-8 ' />
     </button>
    </form>
+   <a
+    className='text-xs text-white/60 underline mt-4 hover:text-white'
+    href='/privacy'>
+    Privacy Policy
+   </a>
   </div>
  )
 }
