@@ -87,7 +87,7 @@ function DayMobile({ day, index, events, todayWeather }: Props) {
      </div>
      <div
       style={{ backgroundColor: currentColor.value, color: currentColor.text, borderColor: isToday ? currentColor.text : 'transparent' }}
-      className='flex justify-between font-medium text-[.5rem] absolute bottom-[5px] right-[10px] left-[5px] pl-[6px] rounded-b-xl border'>
+      className='flex justify-between font-medium text-[.5rem] absolute bottom-[5px] right-[10px] left-[5px] pl-[6px] rounded-b-xl border-t'>
       <div className={cn(todayWeather ? 'opacity-100' : 'opacity-0', minTemp > 99 && 'text-[.4rem]')}>
        {minTemp}°/ {maxTemp}°
       </div>
