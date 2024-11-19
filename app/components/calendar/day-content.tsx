@@ -74,7 +74,7 @@ function DayContent({
    </div>
    <div
     style={{ backgroundColor: currentColor.value, color: currentColor.text, borderColor: isToday ? currentColor.text : 'transparent' }}
-    className='flex justify-between font-semibold text-xs absolute bottom-[5px] right-[9px] left-[4px] pl-[6px] rounded-b-xl border'>
+    className='flex justify-between font-semibold text-[.7rem] absolute bottom-[5px] right-[9px] left-[4px] pl-[6px] rounded-b-xl border'>
     <div className={cn(todayWeather ? 'opacity-100' : 'opacity-0', (precip === 100 || maxTemp > 99) && 'text-[.6rem]')}>
      {minTemp}°/ {maxTemp}°
     </div>
