@@ -4,6 +4,7 @@ import { useLocalStorage } from 'usehooks-ts'
 import { Day as DayType, CalendarEvent, FormattedWeather, ColorOption, colorDefault } from '@/types/types'
 import DayDetail from '../detail/day-detail'
 import { cn } from '@/app/lib/utils'
+import dayjs from '@/app/lib/dayjs'
 import DayContent from './day-content'
 
 type Props = {
@@ -26,6 +27,8 @@ function Day({ day, index, events, todayWeather }: Props) {
    (new Date(day.date) > new Date(event.start.dateTime) && new Date(day.date) < new Date(event.end.dateTime))
  )
 
+ const isToday = dayjs().isSame(day.date, 'day')
+
  const isThisMonth = day.isCurrentMonth
 
  useEffect(() => {
@@ -39,7 +42,10 @@ function Day({ day, index, events, todayWeather }: Props) {
    currentColor={currentColor}
    day={day}>
    <div className={cn('relative day-bg opacity-40 w-[108px] h-[108px] m-auto tablet:mb-[12px] desktop:mb-0', isThisMonth && 'opacity-100')}>
-    <div className='absolute bg-black rounded-xl top-[9px] right-[9px] left-[4px] bottom-[4px] z-0' />
+    <div
+     style={{ backgroundColor: isToday ? color.value : 'black', borderColor: isToday ? color.text : 'transparent' }}
+     className={cn('absolute bg-black rounded-xl top-[9px] right-[9px] left-[4px] bottom-[4px] z-0 border')}
+    />
 
     <DayContent
      day={day}

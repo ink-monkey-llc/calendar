@@ -1,6 +1,7 @@
 import React from 'react'
 import dayjs from '@/app/lib/dayjs'
-import { getLastMonthYear, getNextMonthYear } from '@/app/lib/utils'
+import { useWindowSize } from 'usehooks-ts'
+import { cn, getLastMonthYear, getNextMonthYear } from '@/app/lib/utils'
 import { ArrowLeft } from '../icons/arrow-left'
 import { ArrowRight } from '../icons/arrow-right'
 import { useNewEventStore } from '@/app/lib/zustand/store'
@@ -13,10 +14,14 @@ function MonthSelect({ month, year }: { month: number; year: number }) {
  const selectedMonth = dayjs()
   .month(month - 1)
   .format('MMMM')
+
+ const { width } = useWindowSize()
+ const isMobile = width < 465
+
  return (
   <div className='relative flex items-center justify-center gap-3 text-2xl  mx-auto w-full'>
    <a
-    className='text-xs text-white/60 absolute top-1 left-4 underline hover:text-white'
+    className={cn('text-xs text-white/60 absolute top-1 left-4 underline hover:text-white', isMobile && 'left-2')}
     href='/privacy'>
     Privacy Policy
    </a>

@@ -4,7 +4,6 @@ import Image from 'next/image'
 import { CloseIcon } from '../icons/close'
 import { luckiest_guy } from '@/fonts'
 import ProdCard from './prod-card'
-import { useLocalStorage } from 'usehooks-ts'
 import { adDataLeft, adDataRight } from '@/data/ad-data'
 import { useNewEventStore } from '@/app/lib/zustand/store'
 

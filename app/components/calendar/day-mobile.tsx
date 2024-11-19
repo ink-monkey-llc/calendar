@@ -54,29 +54,31 @@ function DayMobile({ day, index, events, todayWeather }: Props) {
    events={eventsForDay}
    currentColor={currentColor}
    day={day}>
-   <div className={cn('relative day-bg opacity-40 w-full max-w-[87px]', isThisMonth && 'opacity-100', width > 420 && 'mb-2')}>
-    <div className='absolute bg-black rounded-xl top-[9px] right-[9px] left-[4px] bottom-[4px] z-0'></div>
+   <div className={cn('relative day-bg opacity-40 w-full max-w-[87px] m-auto', isThisMonth && 'opacity-100', width > 420 && 'mb-2')}>
+    <div
+     style={{ backgroundColor: isToday ? currentColor.value : 'black', borderColor: isToday ? currentColor.text : 'transparent' }}
+     className='absolute bg-black rounded-xl top-[9px] right-[9px] left-[4px] bottom-[4px] z-0 border'></div>
     <div className='aspect-square relative rounded-lg z-10 flex justify-between flex-col'>
      <div
       className='text-end p-2 pl-[7px]'
       key={index}>
       <div className=' flex justify-between pr-[6px] pt-[6px]'>
        <div
-        style={{ backgroundColor: currentColor.value, color: currentColor.text }}
-        className='text-[.55rem] font-semibold flex justify-center items-center  rounded-[4px] py-0.5 mr-1 h-max w-[54px]'>
+        style={{ backgroundColor: currentColor.value, color: currentColor.text, borderColor: isToday ? currentColor.text : 'transparent' }}
+        className='text-[.55rem] font-semibold flex justify-center items-center  rounded-[4px] py-0.5 mr-1 h-max w-[54px] border'>
         {dayLabel}
        </div>
        <div
-        style={{ backgroundColor: currentColor.value, color: currentColor.text }}
-        className='flex justify-center text-white text-lg rounded-[4px] w-[29px] leading-tight'>
+        style={{ backgroundColor: currentColor.value, color: currentColor.text, borderColor: isToday ? currentColor.text : 'transparent' }}
+        className='flex justify-center text-white text-lg rounded-[4px] w-[29px] leading-tight border'>
         {day.day}
        </div>
       </div>
       {eventsForDay?.length > 0 &&
        eventsForDay.map((event) => (
         <div
-         style={{ borderColor: currentColor.ul }}
-         className='flex justify-between border-b mr-1 text-[.4rem] text-white'
+         style={{ borderColor: currentColor.ul, color: isToday ? currentColor.text : 'white' }}
+         className='flex justify-between border-b mr-1 text-[.4rem]'
          key={event.id}>
          <div className=''>{time(event)} - </div>
          <div className=' truncate '>{trunc(event.summary, 11, true)}</div>
@@ -84,12 +86,12 @@ function DayMobile({ day, index, events, todayWeather }: Props) {
        ))}
      </div>
      <div
-      style={{ backgroundColor: currentColor.value, color: currentColor.text }}
-      className='flex justify-between font-medium text-[.5rem] absolute bottom-[5px] right-[9px] left-[3px] pl-[6px] rounded-b-xl'>
-      <div className={cn(todayWeather ? 'opacity-100' : 'opacity-0', minTemp > 99 && 'text-[.5rem]')}>
+      style={{ backgroundColor: currentColor.value, color: currentColor.text, borderColor: isToday ? currentColor.text : 'transparent' }}
+      className='flex justify-between font-medium text-[.5rem] absolute bottom-[5px] right-[10px] left-[5px] pl-[6px] rounded-b-xl border'>
+      <div className={cn(todayWeather ? 'opacity-100' : 'opacity-0', minTemp > 99 && 'text-[.4rem]')}>
        {minTemp}°/ {maxTemp}°
       </div>
-      <div className={cn('flex justify-end items-start', todayWeather ? 'opacity-100' : 'opacity-0', precip === 100 && 'text-[.5rem]')}>
+      <div className={cn('flex justify-end items-start', todayWeather ? 'opacity-100' : 'opacity-0', precip === 100 && 'text-[.4rem]')}>
        {precip}% <Raindrop className='w-4 h-4 -ml-1 -mt-0.5' />
       </div>
      </div>
