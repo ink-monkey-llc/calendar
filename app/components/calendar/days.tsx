@@ -4,16 +4,19 @@ import { CalendarEvent } from '@/types/types'
 import { useWindowSize } from 'usehooks-ts'
 import { useQuery } from '@tanstack/react-query'
 import Day from './day'
+import { useLocalStorage } from 'usehooks-ts'
 import { getWeather } from '@/app/resource/weather'
+import { useNewEventStore } from '@/app/lib/zustand/store'
 import DayMobile from './day-mobile'
 import { days } from '@/app/lib/date-utils'
 import { getEvents } from '@/app/resource/events'
 
 function Days({ year, month }: { year: number; month: number }) {
  const eventsQuery = useQuery({ queryKey: ['events'], queryFn: getEvents })
+ const [zip] = useLocalStorage<string>('zip', '')
 
  const weatherFetch = async () => {
-  return getWeather(65804, month - 1, year)
+  return getWeather(Number(zip), month - 1, year)
  }
 
  const weatherQuery = useQuery({

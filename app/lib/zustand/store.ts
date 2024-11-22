@@ -21,6 +21,7 @@ export type NoDateState = {
 export type State = NoDateState & {
  currentMonth: number
  currentYear: number
+ zip: string
 }
 
 export type Action = {
@@ -38,6 +39,7 @@ export type Action = {
  setCurrentMonth: (currentMonth: number) => void
  setCurrentYear: (currentYear: number) => void
  setIsAd: (isAd: boolean) => void
+ setZip: (zip: string) => void
  reset: () => void
 }
 
@@ -60,6 +62,7 @@ export const useNewEventStore = create<Action & State>()((set) => ({
  ...initialState,
  currentMonth: initMonth,
  currentYear: initYear,
+ zip: '',
  setSummary: (summary: string) => set({ summary }),
  setDescription: (description: string) => set({ description }),
  setLocation: (location: string) => set({ location }),
@@ -74,5 +77,6 @@ export const useNewEventStore = create<Action & State>()((set) => ({
  setCurrentMonth: (currentMonth: number) => set({ currentMonth }),
  setCurrentYear: (currentYear: number) => set({ currentYear }),
  setIsAd: (isAd: boolean) => set({ isAd }),
+ setZip: (zip: string) => set({ zip }),
  reset: () => set(initialState),
 }))

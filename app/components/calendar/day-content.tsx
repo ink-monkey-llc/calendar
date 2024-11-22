@@ -41,12 +41,20 @@ function DayContent({
     key={index}>
     <div className=' flex justify-between pr-[6px] pt-[6px]'>
      <div
-      style={{ backgroundColor: currentColor.value, color: currentColor.text, borderColor: isToday ? currentColor.text : 'transparent' }}
+      style={{
+       backgroundColor: isToday ? currentColor.text : currentColor.value,
+       color: isToday ? currentColor.value : currentColor.text,
+       borderColor: isToday ? currentColor.text : 'transparent',
+      }}
       className='text-[.55rem] font-semibold flex justify-center items-center  rounded-[4px] py-0.5 mr-1 h-max w-[54px] border'>
       {dayLabel}
      </div>
      <div
-      style={{ backgroundColor: currentColor.value, color: currentColor.text, borderColor: isToday ? currentColor.text : 'transparent' }}
+      style={{
+       backgroundColor: isToday ? currentColor.text : currentColor.value,
+       color: isToday ? currentColor.value : currentColor.text,
+       borderColor: isToday ? currentColor.text : 'transparent',
+      }}
       className='flex justify-center text-white text-lg rounded-[4px] w-[29px] border'>
       {day.day}
      </div>

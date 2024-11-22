@@ -1,5 +1,6 @@
 import React from 'react'
 import CreateDialog from '../create/create-dialog'
+import Zip from './zip'
 import Colors from '../settings/colors'
 import { Logout } from '../icons/logout'
 import { signOut } from '@/auth'
@@ -14,6 +15,7 @@ function MenuBtns() {
   <div className='absolute gap-2 right-4 tablet:right-8 top-2 hidden tablet:flex'>
    <CreateDialog />
    <Colors />
+   <Zip isMobile={false} />
    <form action={handleLogout}>
     <button>
      <Logout className='w-8 h-8 opacity-40 hover:opacity-100 transition-all' />
