@@ -1,3 +1,5 @@
+'use client'
+import { useState } from 'react'
 import Floating from '../floating'
 import { colorOptions } from '@/data/color-options'
 import { cn } from '@/app/lib/utils'
@@ -5,9 +7,12 @@ import ColorOpt from './color-opt'
 import { Palette } from '../icons/palette'
 
 function Colors({ isMobile = false }: { isMobile?: boolean }) {
+ const [isOpen, setIsOpen] = useState(false)
  return (
   <Floating
    offsetAmt={14}
+   isOpen={isOpen}
+   setIsOpen={setIsOpen}
    target={
     <div className={cn('flex gap-1 items-center cursor-pointer')}>
      <div className={cn('min-w-8', isMobile && 'min-w-6')}>

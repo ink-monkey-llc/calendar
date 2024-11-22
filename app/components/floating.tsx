@@ -10,10 +10,11 @@ type Props = {
  offsetAmt?: number
  targetClassName?: string
  childrenClassName?: string
+ isOpen?: boolean
+ setIsOpen?: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-function Colors({ children, target, placement, offsetAmt = 10, targetClassName, childrenClassName }: Props) {
- const [isOpen, setIsOpen] = useState(false)
+function Colors({ children, target, placement, offsetAmt = 10, targetClassName, childrenClassName, isOpen, setIsOpen }: Props) {
  const { refs, floatingStyles, context } = useFloating<HTMLButtonElement>({
   open: isOpen,
   placement: placement,
@@ -27,10 +28,12 @@ function Colors({ children, target, placement, offsetAmt = 10, targetClassName, 
   ],
   whileElementsMounted: autoUpdate,
  })
+
  const click = useClick(context)
  const dismiss = useDismiss(context)
  const { getReferenceProps, getFloatingProps } = useInteractions([click, dismiss])
  const { isMounted, styles } = useTransitionStyles(context)
+
  return (
   <>
    <div
