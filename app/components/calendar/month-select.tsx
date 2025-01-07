@@ -1,5 +1,6 @@
 import React from 'react'
 import dayjs from '@/app/lib/dayjs'
+import { useQueryClient } from '@tanstack/react-query'
 import { useWindowSize } from 'usehooks-ts'
 import { cn } from '@/app/lib/utils'
 import { ArrowLeft } from '../icons/arrow-left'
@@ -11,7 +12,7 @@ function MonthSelect() {
     const setCurrent = useNewEventStore((state) => state.setCurrent)
     const current = useNewEventStore((state) => state.current)
     const currentMonth = dayjs(current).month()
-
+    const queryClient = useQueryClient()
     const selectedMonth = dayjs()
         .month(currentMonth)
         .format('MMMM')

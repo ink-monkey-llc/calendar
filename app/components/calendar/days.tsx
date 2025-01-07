@@ -17,7 +17,7 @@ function Days() {
  const current = useNewEventStore((state) => state.current)
  const currentMonth = dayjs(current).month()
  const currentYear = dayjs(current).year()
- const eventsQuery = useQuery({ queryKey: ['events'], queryFn: () => getEvents(current) })
+ const eventsQuery = useQuery({ queryKey: ['events', current], queryFn: () => getEvents(current) })
  const [zip] = useLocalStorage<string>('zip', '')
 
  const weatherFetch = async () => {
@@ -25,7 +25,7 @@ function Days() {
  }
 
  const weatherQuery = useQuery({
-  queryKey: ['weather'],
+  queryKey: ['weather', current],
   queryFn: weatherFetch,
   refetchOnWindowFocus: false,
  })
