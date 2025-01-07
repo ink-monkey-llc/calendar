@@ -17,8 +17,9 @@ async function googleAuth(accessToken: string, idToken: string, refreshToken: st
  }
 }
 
-export async function getGoogleCalendarEvents(accessToken: string, idToken: string, refreshToken: string, expiresIn: number) {
- const min = dayjs().startOf('month').toISOString()
+export async function getGoogleCalendarEvents(accessToken: string, idToken: string, refreshToken: string, expiresIn: number, current:string) {
+ const min = dayjs(current).startOf('month').toISOString()
+//  console.log(min)
  const auth = await googleAuth(accessToken, idToken, refreshToken, expiresIn)
  const calendar = google.calendar({ version: 'v3', auth, errorRedactor: false })
  try {
@@ -29,7 +30,7 @@ export async function getGoogleCalendarEvents(accessToken: string, idToken: stri
    singleEvents: true,
    orderBy: 'startTime',
   })
-  //   console.log(events.data.items)
+    // console.log(events.data.items)
   return events.data.items || []
  } catch (e) {
   console.log('get events err', e)

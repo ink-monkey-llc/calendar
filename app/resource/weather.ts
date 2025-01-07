@@ -8,6 +8,8 @@ type CoordData = {
  address: string
 }
 
+
+
 const getCoords = async (zip: number): Promise<CoordData> => {
  const res = await fetch(`https://geocode.maps.co/search?q=${zip}&api_key=${process.env.NEXT_PUBLIC_GEOCODE_API_KEY}`)
  const data: Coords[] = await res.json()
@@ -53,16 +55,14 @@ const formatHistWeather = (data: HistWeatherData) => {
 }
 
 export const getWeather = async (zip: number, month: number, year: number): Promise<FormattedWeather[]> => {
- console.log(zip, month, year)
- const isThisMonth = dayjs().month() == month && dayjs().year() == year
+//  console.log(zip, month, year)
  const weatherRes = await fetch(WEATHER_URL(await getCoords(zip)))
  const weatherData = await weatherRes.json()
  const weather = formatWeather(weatherData)
- if (isThisMonth) {
+
   const histRes = await fetch(HIST_WEATHER_URL(await getCoords(zip), firstDayOfMonth(month, year), dayjs().subtract(1, 'day').format('YYYY-MM-DD')))
   const histData = await histRes.json()
   const histWeather = formatHistWeather(histData)
   return [...histWeather, ...weather]
- }
- return weather
+
 }

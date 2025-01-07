@@ -2,12 +2,12 @@ import { getUserSession } from '@/app/lib/googleAuth'
 import { getEvent, getGoogleCalendarEvents } from '../lib/calendar'
 import type { EventType } from '../components/inputs/submit'
 
-export async function getEvents() {
+export async function getEvents(current:string) {
  const session = await getUserSession()
  if (!session || !session.accessToken || !session.idToken || !session.refreshToken || !session.expiresIn) {
   throw new Error('No session found')
  }
- const events = await getGoogleCalendarEvents(session.accessToken, session.idToken, session.refreshToken, session.expiresIn)
+ const events = await getGoogleCalendarEvents(session.accessToken, session.idToken, session.refreshToken, session.expiresIn, current)
  if (!events || events.length === 0) {
   throw new Error('No events found')
  }

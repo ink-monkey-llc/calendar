@@ -10,13 +10,18 @@ import { useNewEventStore } from '@/app/lib/zustand/store'
 import DayMobile from './day-mobile'
 import { days } from '@/app/lib/date-utils'
 import { getEvents } from '@/app/resource/events'
+import dayjs from '@/app/lib/dayjs'
 
-function Days({ year, month }: { year: number; month: number }) {
- const eventsQuery = useQuery({ queryKey: ['events'], queryFn: getEvents })
+function Days() {
+
+ const current = useNewEventStore((state) => state.current)
+ const currentMonth = dayjs(current).month()
+ const currentYear = dayjs(current).year()
+ const eventsQuery = useQuery({ queryKey: ['events'], queryFn: () => getEvents(current) })
  const [zip] = useLocalStorage<string>('zip', '')
 
  const weatherFetch = async () => {
-  return getWeather(Number(zip), month - 1, year)
+  return getWeather(Number(zip), currentMonth, currentYear)
  }
 
  const weatherQuery = useQuery({
@@ -37,7 +42,7 @@ function Days({ year, month }: { year: number; month: number }) {
   }
  }
 
- const daysArray = days(year, month, calSize(width))
+ const daysArray = days(currentYear, currentMonth, calSize(width))
  return (
   <div className='grid grid-cols-4 tablet:grid-cols-7 desktop:grid-cols-11 h-full  border-t-black w-full mt-2 tablet:mt-0'>
    {daysArray.map((day, index) => {
