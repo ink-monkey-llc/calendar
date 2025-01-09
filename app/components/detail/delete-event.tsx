@@ -8,24 +8,21 @@ import { useNewEventStore } from '@/app/lib/zustand/store'
 function DeleteEvent({ eventId }: { eventId: string }) {
     const [open, setOpen] = useState(false)
     const reset = useNewEventStore((state) => state.reset)
+    const current = useNewEventStore((state) => state.current)
     const queryClient = useQueryClient()
 
+    const mutFn = async (eventId: string) => {
+        return callDeleteEvent(eventId)
+    }
+
     const mutation = useMutation({
-        mutationFn: (eventId: string) => callDeleteEvent(eventId),
+        mutationFn: mutFn,
         onSuccess: () => {
-            // Force a hard invalidation and refetch
-            queryClient.invalidateQueries({
-                queryKey: ['events'],
-                refetchType: 'active',
-                exact: false
-            })
+            queryClient.invalidateQueries({ queryKey: ['events'], refetchType: 'all' })
+            queryClient.invalidateQueries({ queryKey: ['events', current], refetchType: 'all' })
             reset()
             setOpen(false)
         },
-        // Add error handling
-        onError: (error) => {
-            console.error('Failed to delete event:', error)
-        }
     })
 
     const handleOpen = (e: React.MouseEvent<HTMLParagraphElement, MouseEvent>) => {
