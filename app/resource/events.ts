@@ -11,9 +11,7 @@ export async function getEvents(current: string, forDate: boolean) {
         return await getGoogleCalendarEventsByDate(session.accessToken, session.idToken, session.refreshToken, session.expiresIn, current)
     }
     const events = await getGoogleCalendarEvents(session.accessToken, session.idToken, session.refreshToken, session.expiresIn, current)
-    if (!events || events.length === 0) {
-        throw new Error('No events found')
-    }
+
     return events
 }
 

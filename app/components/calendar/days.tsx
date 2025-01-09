@@ -21,12 +21,13 @@ function Days() {
     const eventsQuery = useQuery({ queryKey: ['events', current], queryFn: () => getEvents(current, false) })
     const [zip] = useLocalStorage<string>('zip', '')
 
+
     const weatherFetch = async () => {
         return getWeather(Number(zip), currentMonth, currentYear)
     }
 
     const weatherQuery = useQuery({
-        queryKey: ['weather', current],
+        queryKey: ['weather', current, zip],
         queryFn: weatherFetch,
         refetchOnWindowFocus: false,
     })
@@ -60,7 +61,6 @@ function Days() {
                                 index={index}
                             />
                         ) : (
-                            // Update this component even if eventsQuery.data is undefined
                             <Day
                                 todayWeather={todayWeather}
                                 events={eventsQuery.isPending ? [] : (eventsQuery.data as CalendarEvent[])}

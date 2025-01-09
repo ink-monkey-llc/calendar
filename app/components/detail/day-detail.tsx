@@ -40,7 +40,6 @@ function DayDetail({
 
     useEffect(() => {
         const now = Date.now()
-        //   console.log(now - lastShown)
         if (now - lastShown > DELAY_IN_MS) {
             setIsAd(true)
             setLastShown(now)

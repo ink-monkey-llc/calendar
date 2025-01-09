@@ -17,7 +17,6 @@ function DeleteEvent({ eventId }: { eventId: string }) {
     const mutation = useMutation({
         mutationFn: mutFn,
         onSuccess: () => {
-            console.log('onSuccess')
             queryClient.invalidateQueries({ queryKey: ['events'], refetchType: 'all' })
             queryClient.invalidateQueries({ queryKey: ['events', current], refetchType: 'all' })
             reset()

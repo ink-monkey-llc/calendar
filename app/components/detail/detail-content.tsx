@@ -20,7 +20,6 @@ function DetailContent({ day, todayWeather }: { day: Day; todayWeather?: Formatt
   const { data: events } = useQuery({ queryKey: ['events', day.date], queryFn: () => getEvents(day.date, true) })
 
   useEffect(() => {
-    console.log('mounted', day.date)
     setCurrentColor(color)
   }, [color])
   const dayLabel = dayjs(day.date).format('dddd')
