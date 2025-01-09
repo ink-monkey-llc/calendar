@@ -6,6 +6,7 @@ import { cn } from '@/app/lib/utils'
 import { ArrowLeft } from '../icons/arrow-left'
 import { ArrowRight } from '../icons/arrow-right'
 import { useNewEventStore } from '@/app/lib/zustand/store'
+import PremiumButton from '../premium/premium-button'
 
 function MonthSelect() {
 
@@ -18,15 +19,18 @@ function MonthSelect() {
         .format('MMMM')
 
     const { width } = useWindowSize()
-    const isMobile = width < 465
+    const isSmall = width < 780
 
     return (
         <div className='relative flex items-center justify-center gap-3 text-2xl  mx-auto w-full'>
-            <a
+            {/* <a
                 className={cn('text-xs text-white/60 absolute top-1 left-4 underline hover:text-white', isMobile && 'left-2')}
                 href='/privacy'>
                 Privacy Policy
-            </a>
+            </a> */}
+            <div className={cn('absolute top-1 left-4', isSmall && 'top-2')}>
+                <PremiumButton collapsible={true} />
+            </div>
             <div
                 onClick={() => {
                     setCurrent(dayjs(current).subtract(1, 'month').format('YYYY-MM-DD'))
@@ -45,5 +49,6 @@ function MonthSelect() {
         </div>
     )
 }
+
 
 export default MonthSelect
