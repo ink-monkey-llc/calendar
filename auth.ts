@@ -9,6 +9,10 @@ declare module 'next-auth' {
         idToken?: string
         refreshToken?: string
         expiresIn?: number
+        user?: {
+            email?: string | null
+            name?: string | null
+        }
     }
 }
 
@@ -43,6 +47,10 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
                 session.idToken = token.idToken as string
                 session.refreshToken = token.refreshToken as string
                 session.expiresIn = token.expiresIn as number
+            }
+            session.user = {
+                email: token.email,
+                name: token.name
             }
             return session
         },

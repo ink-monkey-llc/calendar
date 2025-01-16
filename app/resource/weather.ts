@@ -17,8 +17,6 @@ const getCoords = async (zip: number): Promise<CoordData> => {
   return coords
 }
 
-// Update vercel env variable
-
 const WEATHER_URL = (coords: CoordData) =>
   `https://api.open-meteo.com/v1/forecast?latitude=${coords.lat}&longitude=${coords.lon}&daily=temperature_2m_max,temperature_2m_min,precipitation_probability_max&temperature_unit=fahrenheit&wind_speed_unit=mph&precipitation_unit=inch&timezone=America%2FChicago&forecast_days=16`
 

@@ -17,6 +17,7 @@ async function googleAuth(accessToken: string, idToken: string, refreshToken: st
   }
 }
 
+
 export async function getGoogleCalendarEvents(accessToken: string, idToken: string, refreshToken: string, expiresIn: number, current: string) {
   const min = dayjs(current).startOf('month').toISOString()
   const auth = await googleAuth(accessToken, idToken, refreshToken, expiresIn)
