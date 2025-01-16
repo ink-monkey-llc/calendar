@@ -1,7 +1,7 @@
 
 import Stripe from "stripe";
 
-const SK = process.env.NEXT_PUBLIC_STRIPE_SECRET_KEY ?? ''
+const SK = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY ?? ''
 
 export const stripe = new Stripe(SK);
 
