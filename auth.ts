@@ -1,5 +1,6 @@
 import NextAuth, { Account, Session } from 'next-auth'
-import { AdapterAccount } from 'next-auth/adapters'
+import { PrismaAdapter } from "@auth/prisma-adapter"
+import { prisma } from "@/app/lib/prisma"
 import { JWT } from 'next-auth/jwt'
 import Google from 'next-auth/providers/google'
 
@@ -12,11 +13,18 @@ declare module 'next-auth' {
         user?: {
             email?: string | null
             name?: string | null
+            isPremium?: boolean
+            stripeId?: string
         }
     }
 }
 
 export const { auth, handlers, signIn, signOut } = NextAuth({
+    adapter: PrismaAdapter(prisma),
+    session: {
+        strategy: "database",
+        maxAge: 30 * 24 * 60 * 60, // 30 days
+    },
     providers: [
         Google({
             clientId: process.env.GOOGLE_CLIENT_ID,
@@ -32,27 +40,44 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
         }),
     ],
     callbacks: {
-        async jwt({ token, account }: { token: JWT; account: Account | null }) {
-            if (account) {
-                token.accessToken = account.access_token
-                token.idToken = account.id_token
-                token.expiresIn = account.expires_in
-                token.refreshToken = account.refresh_token
+        async session({ session, user }) {
+            if (!session?.user) return session
+
+            // Get the user from database
+            const dbUser = await prisma.user.findUnique({
+                where: { id: user.id },
+                select: {
+                    email: true,
+                    name: true,
+                    isPremium: true,
+                    stripeId: true,
+                    accounts: {
+                        select: {
+                            access_token: true,
+                            refresh_token: true,
+                            expires_at: true,
+                            id_token: true,
+                        },
+                        take: 1,
+                    },
+                },
+            })
+
+            if (!dbUser?.accounts?.[0]) return session
+
+            return {
+                ...session,
+                user: {
+                    email: dbUser.email,
+                    name: dbUser.name,
+                    isPremium: dbUser.isPremium,
+                    stripeId: dbUser.stripeId,
+                },
+                accessToken: dbUser.accounts[0].access_token ?? undefined,
+                refreshToken: dbUser.accounts[0].refresh_token ?? undefined,
+                idToken: dbUser.accounts[0].id_token ?? undefined,
+                expiresIn: dbUser.accounts[0].expires_at ?? undefined,
             }
-            return token
-        },
-        async session({ session, token }: { session: Session & { accessToken?: string; idToken?: string; refreshToken?: string; expiresIn?: number }; token: JWT }) {
-            if (token.accessToken) {
-                session.accessToken = token.accessToken as string
-                session.idToken = token.idToken as string
-                session.refreshToken = token.refreshToken as string
-                session.expiresIn = token.expiresIn as number
-            }
-            session.user = {
-                email: token.email,
-                name: token.name
-            }
-            return session
         },
     },
 })
