@@ -12,6 +12,7 @@ declare module 'next-auth' {
         expiresIn?: number
         user?: {
             email?: string | null
+            image?: string | null
             name?: string | null
             id?: string | null
             isPremium?: boolean
@@ -51,6 +52,7 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
                     id: true,
                     email: true,
                     name: true,
+                    image: true,
                     isPremium: true,
                     stripeId: true,
                     accounts: {
@@ -73,6 +75,7 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
                     id: dbUser.id,
                     email: dbUser.email,
                     name: dbUser.name,
+                    image: dbUser.image,
                     isPremium: dbUser.isPremium,
                     stripeId: dbUser.stripeId,
                 },

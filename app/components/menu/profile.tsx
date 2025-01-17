@@ -7,6 +7,7 @@ import { Avatar } from "../icons/avatar";
 import Floating from '../floating'
 import { cn } from '@/app/lib/utils';
 import { Logout } from '../icons/logout';
+import { AvatarImage } from './avatar-image';
 export function Profile({ isMobile }: { isMobile: boolean }) {
     const [isOpen, setIsOpen] = useState(false)
     const { data: session } = useSession()
@@ -19,7 +20,12 @@ export function Profile({ isMobile }: { isMobile: boolean }) {
         isOpen={isOpen}
         setIsOpen={setIsOpen}
         target={
-            <div className={cn('cursor-pointer h-full flex items-center', isMobile && 'flex justify-between w-full items-center gap-1')}><Avatar className={cn('w-6 h-6 opacity-40 hover:opacity-100 transition-all', !isMobile && 'w-7 h-7')} /> {isMobile && <p>Profile</p>}</div>}
+            <div className={cn('cursor-pointer h-full flex items-center', isMobile && 'flex justify-between w-full items-center gap-1')}>
+                {session?.user?.image ? <AvatarImage src={session?.user?.image} /> :
+                    <Avatar className={cn('w-6 h-6 opacity-40 hover:opacity-100 transition-all', !isMobile && 'w-7 h-7')} />
+                }
+                {isMobile && <p>Profile</p>}
+            </div>}
     >
         <div className='bg-gray-950 rounded-lg shadow-lg py-4 z-50 relative flex w-max flex-col gap-2 items-start'>
             <div className='text-sm text-white/80 px-3'>{session?.user?.email}</div>
