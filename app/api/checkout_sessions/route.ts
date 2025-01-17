@@ -7,7 +7,7 @@ import Stripe from 'stripe'
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY ?? '')
 
 
-export async function POST(req: NextRequest, res: NextResponse) {
+export async function POST(req: NextRequest) {
     const authSession = await auth()
     try {
         if (!authSession?.user?.email || !authSession?.user?.id) {
@@ -38,7 +38,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
         return new NextResponse('Error creating checkout session', { status: 500 })
     }
 }
-export async function GET(request: Request) {
+export async function GET(request: NextRequest) {
     try {
         const { searchParams } = new URL(request.url)
         const sessionId = searchParams.get('session_id')
