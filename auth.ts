@@ -13,6 +13,7 @@ declare module 'next-auth' {
         user?: {
             email?: string | null
             name?: string | null
+            id?: string | null
             isPremium?: boolean
             stripeId?: string
         }
@@ -47,6 +48,7 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
             const dbUser = await prisma.user.findUnique({
                 where: { id: user.id },
                 select: {
+                    id: true,
                     email: true,
                     name: true,
                     isPremium: true,
@@ -68,6 +70,7 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
             return {
                 ...session,
                 user: {
+                    id: dbUser.id,
                     email: dbUser.email,
                     name: dbUser.name,
                     isPremium: dbUser.isPremium,

@@ -7,8 +7,9 @@ import { ArrowLeft } from '../icons/arrow-left'
 import { ArrowRight } from '../icons/arrow-right'
 import { useNewEventStore } from '@/app/lib/zustand/store'
 import PremiumButton from '../premium/premium-button'
+import { Session } from 'next-auth'
 
-function MonthSelect() {
+function MonthSelect({ session }: { session: Session }) {
 
     const setCurrent = useNewEventStore((state) => state.setCurrent)
     const current = useNewEventStore((state) => state.current)
@@ -28,9 +29,9 @@ function MonthSelect() {
                 href='/privacy'>
                 Privacy Policy
             </a> */}
-            <div className={cn('absolute top-1 left-4', isSmall && 'top-2')}>
+            {!session.user?.isPremium && <div className={cn('absolute top-1 left-4', isSmall && 'top-2')}>
                 <PremiumButton collapsible={true} />
-            </div>
+            </div>}
             <div
                 onClick={() => {
                     setCurrent(dayjs(current).subtract(1, 'month').format('YYYY-MM-DD'))

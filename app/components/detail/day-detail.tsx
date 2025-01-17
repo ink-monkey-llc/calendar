@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { useSession } from 'next-auth/react'
 import { Dialog, DialogTrigger, DialogContent, DialogContainer } from '@/app/components/motion/dialog'
 import { cn } from '@/app/lib/utils'
 import DetailContent from './detail-content'
@@ -24,7 +25,7 @@ function DayDetail({
     todayWeather?: FormattedWeather | null
 }) {
     //  const isAd = useShowComponentOnce()
-
+    const { data: session } = useSession()
     const { width } = useWindowSize()
     const isEdit = useNewEventStore((state) => state.isEdit)
     const isCreate = useNewEventStore((state) => state.isCreate)
@@ -73,7 +74,7 @@ function DayDetail({
                             <DetailCreateContent color={currentColor} />
                         ) : isEdit ? (
                             <EditContent color={currentColor} />
-                        ) : isAd ? (
+                        ) : (isAd && session && !session.user?.isPremium) ? (
                             <AdContent />
                         ) : (
                             <DetailContent
